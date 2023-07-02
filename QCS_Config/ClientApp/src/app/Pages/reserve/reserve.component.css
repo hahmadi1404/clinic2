@@ -1,0 +1,47 @@
+.column {
+    float: left;
+    width: 25%;
+    padding: 10px;
+  }
+  .galleryContainer {
+    position: relative;
+    display: none;
+  }
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  .container {
+    background: whitesmoke !important;
+    min-width: 500px;
+    min-height:80%;
+    width: 90%  !important;
+    margin: 30px auto;
+    
+    width:700px;
+  }
+  
+  h1 {
+    font-size: 30px;
+    text-align: center;
+    margin: 20px 0 20px;
+  }
+  h1 small {
+    display: block;
+    font-size: 15px;
+    padding-top: 8px;
+    color: gray;
+  }
+  label{
+    align-self: center;
+  }
+
+  .dataRow{
+    cursor: pointer;
+
+  }
+  .dataRow:hover{
+    background-color: rgba(231, 255, 194, 0.336);
+  }

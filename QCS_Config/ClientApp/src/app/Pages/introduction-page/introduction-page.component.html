@@ -1,0 +1,52 @@
+
+<div class="container">
+    <h1 >معرفی مجموعه</h1>
+
+
+    <p-tabView>
+        <p-tabPanel header="توضیحات">
+
+
+            <div class="avatar-upload">
+                <div class="avatar-edit">
+                    <input type='file' id="imageUpload" (change)="readURL($event)" accept=".png, .jpg, .jpeg" />
+                    <label class="fas fa-pen lbl" for="imageUpload">
+                        
+                    </label>
+                </div>
+                <div class="avatar-preview">
+                    <div id="imagePreview" [ngStyle]="{'background-image':  ImageUrl }">
+                    </div>
+                </div>
+            </div>
+            <div style="    margin: 0 auto;max-width: 520px;direction: rtl;">
+            <label for="">توضیحات:</label>
+            <br>
+                <textarea pInputTextarea  style="margin: 50px auto;"  [(ngModel)]="Data.description" style="width: 500px;height: 300px;"></textarea>
+                <br>
+                <p-button (onClick)="Save()" [loading]="loading" label="ذخیره"></p-button>
+            </div>
+
+
+
+        </p-tabPanel>
+        <p-tabPanel header="گالری">
+            <p-button *ngIf="!dragMode" icon="pi pi-plus" class="addGallery" (click)="galleryFile.click()" styleClass=" p-button-rounded p-button-success p-button-text p-button-raised"></p-button>
+            <p-button  *ngIf="dragMode" icon="pi pi-trash" class="removeGallery"  styleClass=" p-button-rounded p-button-danger " (dragover)="allowDrop($event)" (drop)="drop($event)" droppable="true"  dragged ></p-button>
+            
+            
+            <input type="file" id="galleryUpload" hidden multiple (change)="addGallery($event)" #galleryFile  accept=".png, .jpg, .jpeg">
+            <div class="row">
+                <span class="column" *ngFor="let item of GaleryFiles; let i = index">
+
+                    <p-image aria-haspopup="true" draggable="true" [src]="'/images/'+ClinicId+'/IntroGallery/0/'+item" alt="Image" width="150"   (dragstart)="setItem($event,item)" (dragend)="setItem($event,'')"  height="150" [preview]="true"></p-image>
+                    
+                </span>
+                
+            </div>
+            
+        </p-tabPanel>
+
+    </p-tabView>
+
+</div>

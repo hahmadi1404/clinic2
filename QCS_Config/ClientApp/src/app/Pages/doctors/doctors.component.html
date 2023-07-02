@@ -1,0 +1,75 @@
+
+<div class="container" style="direction: rtl; " >
+    <h1 style="text-align: center;">معرفی پزشکان</h1>
+
+    <p-button class="btnNew" icon="pi pi-plus" label="پزشک جدید"  title=" پزشک جدید" (click)="addDoctor()" styleClass="p-button-success"></p-button>
+    
+    <div class="card"  >
+        <p-table [value]="Doctors" [tableStyle]="{ 'width': '40rem' }">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="text-align: right;">نام</th>
+                    <th style="text-align: right;">تخصص</th>
+                    <th style="text-align: right;">روزهای حضور</th>
+                    <th style="width:10rem;text-align: center;">عملیات</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-doctor>
+                <tr>
+                    <td style="text-align: right;">{{ doctor.drName }}</td>
+                    <td style="text-align: right;">{{ doctor.drSpecialty }}</td>
+                    <td style="text-align: right;">{{ doctor.days }}</td>
+                    <td class="flex justify-content-around flex-wrap card-container indigo-container">
+                        <p-button icon="pi pi-pencil" title="ویرایش پزشک" (click)="editDoctor(doctor)" styleClass="p-button-warning"></p-button>
+                        <p-confirmPopup></p-confirmPopup>
+                        <p-button icon="pi pi-trash" title="حذف پزشک" (click)="removeDoctor($event,doctor)" styleClass="p-button-danger "></p-button>
+                        
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+
+
+</div>
+
+
+
+<p-dialog [header]="editMode?'ویرایش پزشک':'ایجاد پزشک جدید'" [(visible)]="visible" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+    <div class="avatar-upload">
+        <div class="avatar-edit">
+            <input type='file' id="imageUpload" (change)="readURL($event)" accept=".png, .jpg, .jpeg" />
+            <label class="fas fa-pen lbl" for="imageUpload">
+                
+            </label>
+        </div>
+        <div class="avatar-preview">
+            <div id="imagePreview" [ngStyle]="{'background-image':  ImageUrl }">
+            </div>
+        </div>
+    </div>
+    <br>
+    <div style="    margin: 0 auto;max-width: 520px;direction: rtl;">
+
+        <div class="flex flex-column gap-2">
+            <label htmlFor="title">نام</label>
+            <input pInputText id="title" aria-describedby="username-help" [(ngModel)]="currentDoctor.drName" />
+            <!-- <small id="username-help">Enter your username to reset your password.</small> -->
+        </div>
+        <br>
+        <div class="flex flex-column gap-2">
+            <label htmlFor="title">تخصص</label>
+            <input pInputText id="title" aria-describedby="username-help" [(ngModel)]="currentDoctor.drSpecialty" />
+            <!-- <small id="username-help">Enter your username to reset your password.</small> -->
+        </div>
+        <br>
+        <div class="flex flex-column gap-2">
+            <label htmlFor="title">روز های حضور</label>
+            <input pInputText id="title" aria-describedby="username-help" [(ngModel)]="currentDoctor.days" />
+            <!-- <small id="username-help">Enter your username to reset your password.</small> -->
+        </div>
+        <br>
+        <p-button (onClick)="editMode? UpdateDoctor():CreateDoctor() " [loading]="loading" label="ذخیره"></p-button>
+    </div> 
+</p-dialog>

@@ -1,0 +1,83 @@
+
+<div class="container" style="direction: rtl;" >
+    <h1 style="text-align: center;">معرفی خدمات</h1>
+
+    <p-button icon="pi pi-plus" label="خدمت جدید"  title=" خدمت جدید" (click)="addService()" styleClass="p-button-success"></p-button>
+    
+    <div class="card" >
+        <p-table [value]="Services" [tableStyle]="{ 'width': '40rem' }">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="text-align: right;">عنوان خدمت</th>
+                    <th style="width:13rem;text-align: center;">عملیات</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-service>
+                <tr>
+                    <td style="text-align: right;">{{ service.title }}</td>
+                    <td class="flex justify-content-around flex-wrap card-container indigo-container">
+                        <p-button icon="pi pi-images" title="گالری" (click)="Gallery(service)" styleClass="p-button-help"></p-button> 
+                        <p-button icon="pi pi-pencil" title="ویرایش خدمت" (click)="editService(service)" styleClass="p-button-warning"></p-button>
+                        <p-confirmPopup></p-confirmPopup>
+                        <p-button icon="pi pi-trash" title="حذف خدمت" (click)="removeService($event,service)" styleClass="p-button-danger "></p-button>
+                        
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+
+
+</div>
+
+
+
+<p-dialog [header]="editMode?'ویرایش خدمت':'ایجاد خدمت جدید'" [(visible)]="visible" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+    <div class="avatar-upload">
+        <div class="avatar-edit">
+            <input type='file' id="imageUpload" (change)="readURL($event)" accept=".png, .jpg, .jpeg" />
+            <label class="fas fa-pen lbl" for="imageUpload">
+                
+            </label>
+        </div>
+        <div class="avatar-preview">
+            <div id="imagePreview" [ngStyle]="{'background-image':  ImageUrl }">
+            </div>
+        </div>
+    </div>
+    <br>
+    <div style="    margin: 0 auto;max-width: 520px;direction: rtl;">
+
+        <div class="flex flex-column gap-2">
+            <label htmlFor="title">عنوان</label>
+            <input pInputText id="title" aria-describedby="username-help" [(ngModel)]="currentService.title" />
+            <!-- <small id="username-help">Enter your username to reset your password.</small> -->
+        </div>
+        <br>
+        <div class="flex  flex-column gap-2">
+            <label for="loat-input">توضیحات:</label>
+            <textarea id="loat-input" pInputTextarea  style="margin: 50px auto;"  [(ngModel)]="currentService.description" style="height: 200px;"></textarea>
+        </div>
+        <br>
+        <p-button (onClick)="editMode? UpdateService():CreateService() " [loading]="loading" label="ذخیره"></p-button>
+    </div> 
+</p-dialog>
+
+<p-dialog header="گالری" [(visible)]="GalleryVisible" [modal]="true" [style]="{ width: '40vw' ,'height':'50vw' }" [draggable]="false" [resizable]="false">
+<br>
+    <p-button *ngIf="!dragMode" icon="pi pi-plus" class="addGallery" (click)="galleryFile.click()" styleClass=" p-button-rounded p-button-success p-button-text p-button-raised"></p-button>
+    <p-button  *ngIf="dragMode" icon="pi pi-trash" class="removeGallery"  styleClass=" p-button-rounded p-button-danger " (dragover)="allowDrop($event)" (drop)="drop($event)" droppable="true"  dragged ></p-button>
+    
+    
+    <input type="file" id="galleryUpload" hidden multiple (change)="addGallery($event)" #galleryFile  accept=".png, .jpg, .jpeg">
+    <div class="row">
+        <span class="column" *ngFor="let item of GaleryFiles; let i = index">
+
+            <p-image aria-haspopup="true" draggable="true" [src]="'/images/'+ClinicId+'/ServiceGallery/'+currentService.serviceId+'/'+item" alt="Image" width="150"   (dragstart)="setItem($event,item)" (dragend)="setItem($event,'')"  height="150" [preview]="true"></p-image>
+            
+        </span>
+        
+    </div>
+
+</p-dialog>

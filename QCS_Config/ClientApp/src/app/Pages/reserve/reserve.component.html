@@ -1,0 +1,133 @@
+
+<div class="container" style="direction: rtl;" >
+    <h1 style="text-align: center;">مدیریت رزرو وقت</h1>
+
+    <!-- <p-button icon="pi pi-plus" label="پزشک جدید"  title=" پزشک جدید"  styleClass="p-button-success"></p-button> -->
+
+
+
+    <div class="card" style="overflow: inherit !important; max-height:400px" >
+        <p-table [value]="AllData" [tableStyle]="{ 'max-width': '100%' ,'min-height':'700px'}"
+                [loading]="dataLoading"
+                [scrollable]="true"
+                class="p-datatable-sm"
+                 [globalFilterFields]="['dosierIdReq', 'fullNameReq','reserveDate','status']"
+        >
+            <ng-template pTemplate="header" style="overflow: inherit">
+                <tr >
+                    <th pSortableColumn="dosierIdReq" style="text-align: right;">شماره پرونده <p-sortIcon field="dosierIdReq"></p-sortIcon></th>
+                    <th pSortableColumn="fullNameReq" style="text-align: right;">نام <p-sortIcon field="fullNameReq"></p-sortIcon></th>
+                    <th style="text-align: right;width: 200px;">تاریخ رزرو</th>
+                    <th pSortableColumn="status" style="text-align: right;width: 300px;">وضعیت <p-sortIcon field="status"></p-sortIcon></th>
+                    <th style="width:10rem;text-align: center;">عملیات</th>
+                </tr>
+
+    
+                <tr  >
+                    <th >
+                        <p-columnFilter  type="text" matchMode="contains" [showMenu]="false"  style="width:10rem;text-align: center;" field="dosierIdReq"></p-columnFilter>
+                    </th>
+                    <th>
+                        <p-columnFilter type="text" matchMode="contains" [showMenu]="false"  style="width:10rem;text-align: center;" field="fullNameReq"></p-columnFilter>
+                    </th>
+                    <th>
+                        <p-columnFilter type="text" matchMode="contains" [showMenu]="false" style="width:10rem;text-align: center;" field="reserveDate"></p-columnFilter>
+                    </th>
+                    <th>
+                        <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <p-dropdown [ngModel]="value" [options]="ReserveStatusOptions"  (onChange)="filter($event.value)" placeholder="انتخاب کنید">
+                                    <ng-template let-option pTemplate="item">
+                                        <p-tag [value]="option.value" ></p-tag>
+                                    </ng-template>
+                                </p-dropdown>
+                            </ng-template>
+                        </p-columnFilter>
+
+                        <!-- <p-columnFilter type="text" style="width:10rem;text-align: center;" field="status"></p-columnFilter> -->
+                    </th>
+                    <th>
+                        <!-- <p-columnFilter type="text" style="width:10rem;text-align: center;" field="status"></p-columnFilter> -->
+                    </th>
+                </tr>
+
+
+            </ng-template>
+            <ng-template pTemplate="body" let-data style="overflow: inherit"    >
+                <tr class="dataRow" style="max-height:46px" (click)="edit(data)">
+                    <td style="text-align: right;">{{ data.dosierIdReq }}</td>
+                    <td style="text-align: right;">{{ data.fullNameReq }}</td>
+                    <td style="text-align: right;">{{ data.reserveDate | date:'yyyy-MM-dd' }}</td>
+                    <td style="text-align: center;"><p-tag [value]="data.status "></p-tag></td>
+                    <td class="flex justify-content-around flex-wrap card-container indigo-container">
+                        <!-- <p-button icon="pi pi-pencil" title="ویرایش وضعیت رزرو وقت" (click)="edit(data)" styleClass="p-button-warning"></p-button> -->
+                        <p-confirmPopup></p-confirmPopup>
+                        <p-button icon="pi pi-trash"  title="حذف رزرو وقت" (click)="remove($event,data)" styleClass="p-button-rounded p-button-danger "></p-button>
+                        
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+
+
+</div>
+
+
+
+<p-dialog header="ویرایش رزرو وقت" [(visible)]="visible" [modal]="true" [style]="{ width: '29vw' }" [draggable]="false" [resizable]="false">
+
+    <div style="max-width: 520px;direction: rtl;">
+
+        <div class="flex flex-row align-items-end justify-content-end gap-2 ">
+            <label htmlFor="dosierIdReq">شماره پرونده</label>
+            <input class=" p-inputtext-sm" style="width: 370px;" pInputText id="dosierIdReq" disabled aria-describedby="dosierIdReq" [ngModel]="currentData.dosierIdReq" />
+           
+        </div>
+        <br>
+        <div class="flex flex-row align-items-end justify-content-end gap-2">
+            <label htmlFor="fullNameReq">نام و نام خانوادگی</label>
+            <input class="p-inputtext-sm" style="width: 370px;" pInputText id="fullNameReq" disabled aria-describedby="fullNameReq" [ngModel]="currentData.fullNameReq" />
+     
+        </div>
+        <br>
+        <div class="flex flex-row align-items-end justify-content-end gap-2">
+            <label htmlFor="nationalCodeReq">کدملی</label>
+            <input  class="p-inputtext-sm"  style="width: 370px;" pInputText id="nationalCodeReq" disabled aria-describedby="nationalCodeReq" [ngModel]="currentData.nationalCodeReq" />
+     
+        </div>
+        <br>
+        <div class="flex flex-row align-items-end justify-content-end gap-2">
+            <label htmlFor="mobileReq">شماره همراه</label>
+            <input class="p-inputtext-sm" style="width: 370px;" pInputText id="mobileReq" disabled aria-describedby="mobileReq" [ngModel]="currentData.mobileReq" />
+     
+        </div>
+        <br>
+        <div class="flex flex-row align-items-end justify-content-end gap-2">
+            <label htmlFor="genderReq">جنسیت</label>
+            <input class="p-inputtext-sm" style="width: 370px;" pInputText id="genderReq" disabled aria-describedby="genderReq" [value]="currentData.genderReq==0?'مرد':'زن'" />
+           
+        </div>
+        <br>
+        <div class="flex flex-row align-items-end justify-content-end gap-2">
+            <label htmlFor="ageReq">سن</label>
+            <input class="p-inputtext-sm" style="width: 370px;" pInputText id="ageReq" disabled  aria-describedby="ageReq" [ngModel]="currentData.ageReq" />
+           
+        </div>
+        <br>
+        <div class="flex flex-row align-items-end justify-content-end gap-2">
+            <label htmlFor="reserveDate">تاریخ رزرو</label>
+            <input class="p-inputtext-sm" style="width: 370px;" pInputText id="reserveDate" disabled aria-describedby="reserveDate" [ngModel]="currentData.reserveDate| date:'yyyy-MM-dd'" />
+           
+        </div>
+
+       
+    </div> 
+    <br>
+    <div class="card flex justify-content-center">
+    <p-selectButton [options]="ReserveStatusOptions" [(ngModel)]="currentData.status"  optionLabel="name" optionValue="name"></p-selectButton>
+</div>
+    <br>
+    <p-button (onClick)="Update()" [loading]="loading" label="ذخیره"></p-button>
+</p-dialog>

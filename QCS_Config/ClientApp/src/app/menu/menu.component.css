@@ -1,0 +1,77 @@
+:host ::ng-deep .p-menu {
+    border-radius: 0.5rem 0 0 0.5rem;
+    
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+    margin: 30px 21px 0 0;
+    font-family: "vazir";
+    background: white !important;
+    min-height: 350px !important;
+    min-width: 300px !important;
+}
+
+:host ::ng-deep .p-menu .p-menuitem-text {
+    color: #000000 !important;
+    direction: rtl;
+
+}
+:host ::ng-deep .p-menu:hover  .p-menuitem:hover {
+    color: #000000 !important;
+    background-color: rgba(255, 188, 2, 0.692);
+    font-weight: 500;
+   
+    font-size: 18px;
+    transition: font-size 0.3s;
+}
+:host ::ng-deep .p-menu .p-submenu-header{
+    color: #000000 !important;
+    background: #068b42 !important;
+    text-align: center !important;
+    opacity: 0;
+    margin-bottom: 5px;
+    
+}
+
+:host ::ng-deep .p-menu .p-menuitem-link:hover{
+    background-color: transparent;
+}
+:host ::ng-deep .p-menu .p-menuitem-text{
+    margin: auto;
+}
+:host ::ng-deep .p-menu .p-menuitem{
+    margin: auto;
+    padding: 5px;
+    border: #6969693a !important;
+    border-width: 1px !important;
+    border-bottom-style: solid !important;
+}
+
+:host ::ng-deep .p-menu::before{
+    position: absolute;
+    top: 2rem;
+    right: -0.5rem;
+    content: "";
+    background: rgba(184, 136, 4, 0.692);
+    height: 28px;
+    width: 28px;
+    transform: rotate(45deg);
+    margin: 45px 30px 0 0;
+    z-index: -1;
+    
+  }
+  
+  :host ::ng-deep .p-menu::after{
+    position: absolute;
+    content: "منوی اصلی";
+    top: 11px;
+    right: -14px;
+    padding: 0.5rem;
+    width: 10rem;
+    background: rgb(226, 174, 29);
+    color: white;
+    text-align: center;
+    font-weight: 600;
+    font-family: "vazir";
+    box-shadow: 4px 4px 15px rgba(26, 35, 126, 0.2);
+    margin: 40px 30px 0 0;
+  }

@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+  background: whitesmoke;
+  font-family: "vazir" !important;
+}
+body .p-component{
+    font-family: "vazir" !important;
+    
+}
+
+@font-face {
+  src: url('assets/Vazir.woff2') format('woff2');
+  font-family:'vazir';
+  font-style: normal;
+}
