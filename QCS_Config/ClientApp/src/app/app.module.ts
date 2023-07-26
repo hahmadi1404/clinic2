@@ -35,6 +35,9 @@ import { BillComponent } from './bill/bill.component';
 import { TagModule } from 'primeng/tag';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
+import { UserLoginComponent } from './userPages/user-login/user-login.component';
+import { RegisterComponent } from './userPages/register/register.component';
+import { MyReserveComponent } from './userPages/my-reserve/my-reserve.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +52,10 @@ import { DropdownModule } from 'primeng/dropdown';
     DoctorsComponent,
     ReserveComponent,
     GraphyComponent,
-    BillComponent
+    BillComponent,
+    UserLoginComponent,
+    RegisterComponent,
+    MyReserveComponent
   ],
   imports: [
     BrowserModule,

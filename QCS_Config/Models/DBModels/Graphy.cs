@@ -13,9 +13,13 @@ namespace QCS_Config.Models
         public string? FullNameReq { get; set; }
         public long? NationalCodeReq { get; set; }
         public string? MobileReq { get; set; }
-        public string? FromDate { get; set; }
-        public string? ToDate { get; set; }
-        public string? RequestDate { get; set; }
+        public string? FromDatePersian { get; set; }
+        public string? ToDatePersian { get; set; }
+        public string? RequestDatePersian { get; set; }
         public string? GraphyPath { get; set; }
+        public int? Status { get; set; }
+        public DateTime? FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
+        public DateTime? RequestDate { get; set; }
     }
 }

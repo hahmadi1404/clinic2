@@ -11,7 +11,7 @@
     "QCS_Config": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:7088;http://localhost:5262",
+      "applicationUrl": "http://localhost:8096",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
         

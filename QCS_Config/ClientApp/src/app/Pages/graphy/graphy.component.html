@@ -4,8 +4,11 @@
 
     <!-- <p-button icon="pi pi-plus" label="پزشک جدید"  title=" پزشک جدید"  styleClass="p-button-success"></p-button> -->
     
-    <div class="card" >
-        <p-table [value]="AllData" [tableStyle]="{ 'width': '50rem' }">
+    <div class="card" style="overflow: inherit !important; max-height:400px">
+        <p-table [value]="AllData" [tableStyle]="{  'max-width': '100%' }"
+        [loading]="dataLoading"
+        [scrollable]="true"
+>
             <ng-template pTemplate="header">
                 <tr>
                     <th style="text-align: right;">شماره پرونده</th>

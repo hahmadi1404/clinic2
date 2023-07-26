@@ -7,7 +7,10 @@ body .p-component{
     font-family: "vazir" !important;
     
 }
+body,html{
+  height: 100% ;
 
+}
 @font-face {
   src: url('assets/Vazir.woff2') format('woff2');
   font-family:'vazir';

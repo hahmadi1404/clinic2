@@ -111,4 +111,32 @@ RemoveBill(data:any) {
   return this.http.delete('./api/Bill/'+data.graphyId, {headers: {'Authorization': `Bearer ${this.loginService.getCookie('token')}`}});
 }
 
+//Agreement
+GetAgreement() {
+  return this.http.get('./api/Agreement');
+}
+
+
+//Insurance
+GetInsurance() {
+  return this.http.get('./api/Insurance');
+}
+
+
+//Patient
+GetAllPatient() {
+  return this.http.get('./api/Patient', {headers: {'Authorization': `Bearer ${this.loginService.getCookie('token')}`}});
+}
+AddPatient(data:any) {
+  return this.http.post('./api/Patient', data);
+}
+// UpdatePatient(data:any) {
+//   return this.http.put('./api/Patient/'+data.Id, data, {headers: {'Authorization': `Bearer ${this.loginService.getCookie('token')}`}});
+// }
+// RemovePatient(data:any) {
+//   return this.http.delete('./api/Patient/'+data.Id, {headers: {'Authorization': `Bearer ${this.loginService.getCookie('token')}`}});
+// }
+
+
+
 }

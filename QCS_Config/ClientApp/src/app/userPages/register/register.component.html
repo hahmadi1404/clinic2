@@ -1,0 +1,77 @@
+<div class="body"></div>
+    <div class="container">
+        <div class="d-flex justify-content-center h-100">
+            <div class="card">
+                <div class="card-header">
+                    <h3 style="text-align: right;">ثبت نام</h3>
+                    <!-- <div class="d-flex justify-content-end social_icon">
+                        <span><i class="fab fa-facebook-square"></i></span>
+                        <span><i class="fab fa-google-plus-square"></i></span>
+                        <span><i class="fab fa-twitter-square"></i></span>
+                    </div> -->
+                </div>
+                <div class="card-body">
+                    <div class="terms-and-conditions" [hidden]="termsConditions">
+
+                        <div class="form-group">
+                            <label for="terms">توافق نامه</label>
+                            <textarea readonly type="text" class="form-control" style="height: 200px;resize: none;" id="terms" [(ngModel)]="terms"></textarea>
+                          </div>
+                          <div class="form-group" style=" display: flex;">
+                            <input style="margin-left: 10px;width: 15px;" type="checkbox" class="form-control" id="agree" [(ngModel)]="agree">
+                            <label  for="agree">خواندم و موافقم</label>
+                          </div>
+                          <button type="button" class="btn float-right register_btn" (click)="setAgree()" [disabled]="!agree">ادامه</button>
+                    </div>
+                    <form  #f="ngForm" (ngSubmit)="onSubmit(f)" [hidden]="termsConditions==false">
+                        <div class="form-group">
+                            <label for="case_number">شماره پرونده ( اختیاری )</label>
+                            <input ngModel #dosierID="ngModel" type="text" class="form-control" maxlength="50" name="DosierID" placeholder="شماره پرونده">
+                          </div>
+                          <div class="form-group">
+                            <label for="name">نام</label>
+                            <input ngModel #name="ngModel" type="text" class="form-control" maxlength="50" name="name" required placeholder="نام">
+                          </div>
+                          <div class="form-group">
+                            <label for="last_name">نام خانوادگی</label>
+                            <input ngModel #last_name="ngModel" type="text" class="form-control" maxlength="50" name="last_name" required placeholder="نام خانوادگی">
+                          </div>
+                          <div class="form-group">
+                            <label for="national_code">کد ملی</label>
+                            <input ngModel type="text" class="form-control" name="national_code" maxlength="10" (keypress)="onKeyPress($event)" required placeholder="کد ملی">
+                          </div>
+                          <div class="form-group">
+                            <label for="phone_number">شماره تلفن همراه (مثال:09123456789)</label>
+                            <input ngModel type="text" class="form-control"  name="phone_number" maxlength="11"  required (keypress)="onKeyPress($event)"   pattern="09[0-9]{9}" placeholder="شماره تلفن همراه">
+                          </div>
+                          <div class="form-group">
+                            <label for="insurance">بیمه</label>
+                            <select ngModel class="form-control" name="insurance">
+                                <option *ngFor="let insurance of insurances" [value]="insurance.id">
+                                    {{ insurance.insuranceName }}
+                                  </option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label  for="gender" sytle="margin-left: 10px;">جنسیت</label>
+                            <input type="radio"  name="gender" value=1> <span  style="margin-left: 10px;color: aliceblue;"> مرد </span> 
+                            <input ngModel type="radio"  name="gender" value=2><span style="color: aliceblue;" > زن </span> 
+                          </div>
+
+                        <div class="form-group" style="max-width: fit-content;display: flex; align-content: center;">
+                            <input type="submit" value="ثبت" class="btn float-right register_btn">
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-center links"  >
+                        <!-- Don't have an account?<a href="#">ثبت نام نکرده ام</a> -->
+                        <a style="color: goldenrod;" href="./login">برگشت به صفحه ورود</a>
+                    </div>
+                    <!-- <div class="d-flex justify-content-center">
+                        <a href="#">Forgot your password?</a>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>

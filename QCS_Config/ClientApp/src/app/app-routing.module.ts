@@ -13,6 +13,8 @@ import { DoctorsComponent } from './Pages/doctors/doctors.component';
 import { ReserveComponent } from './Pages/reserve/reserve.component';
 import { GraphyComponent } from './Pages/graphy/graphy.component';
 import { BillComponent } from './bill/bill.component';
+import { UserLoginComponent } from './userPages/user-login/user-login.component';
+import { RegisterComponent } from './userPages/register/register.component';
 
 const routes: Routes = [
   { path: 'logout',  component: LogoutComponent },
@@ -26,7 +28,9 @@ const routes: Routes = [
     {path:'Graphy',component: GraphyComponent},
     {path:'Bill',component: BillComponent},
   ] ,canActivate: [AuthGuard]},
-  {path:'login',component:LoginComponent}
+  {path:'login',component:UserLoginComponent},
+  {path:'register',component:RegisterComponent}
+  // {path:'login',component:LoginComponent}
 ];
 
 @NgModule({

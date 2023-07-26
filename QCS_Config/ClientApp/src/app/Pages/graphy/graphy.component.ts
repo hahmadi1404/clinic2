@@ -10,7 +10,7 @@ import { RequestService } from 'src/app/Services/request.service';
 })
 export class GraphyComponent {
   AllData:any=[];
-
+  dataLoading=true;
   // ClinicId: number=-1;
   constructor(private confirmationService: ConfirmationService,private reqService:RequestService,private loginService: LoginService) {
     // this.ClinicId=Number(this.loginService.getCookie('permission'));
@@ -23,8 +23,10 @@ export class GraphyComponent {
   }
 
   getData(){
+    this.dataLoading=true;
     this.reqService.GetAllGraphy().subscribe((data:any)=>{
       this.AllData=data;
+      this.dataLoading=false;
     });
   }
 

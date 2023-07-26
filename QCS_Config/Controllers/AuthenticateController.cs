@@ -34,7 +34,7 @@ namespace LeopardWebService.Controllers
             SqlConnection connectionSql = new SqlConnection(Config.All.sqlConnectionString);
             connectionSql.Open();
             var sqlCommand = connectionSql.CreateCommand();
-            sqlCommand.CommandText = $"Select UserID,Name,ClinicId from user_t where UserName=@Username and Password=@Password and state = 0";
+            sqlCommand.CommandText = $"Select UserID,Name,ClinicId from user_t where UserName=@Username and Password=@Password and Status = 0";
             sqlCommand.Parameters.AddWithValue("Username", model.Username);
             sqlCommand.Parameters.AddWithValue("Password", model.Password);
             var dr = sqlCommand.ExecuteReader();

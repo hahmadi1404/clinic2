@@ -28,10 +28,12 @@
   
   .container {
     background: whitesmoke !important;
-    max-width: 960px;
+    min-width: 500px;
+    min-height:80%;
+    width: 90%  !important;
     margin: 30px auto;
     
-    width:800px;
+    width:700px;
   }
   
   h1 {

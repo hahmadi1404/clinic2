@@ -15,12 +15,14 @@ namespace QCS_Config.Models
         public string? MobileReq { get; set; }
         public int? GenderReq { get; set; }
         public int? AgeReq { get; set; }
-        public string? ReserveDate { get; set; }
+        public string? ReserveDatePersian { get; set; }
         public string? Status { get; set; }
         public int? ShiftId { get; set; }
         public int? DrId { get; set; }
         public int? InsuranceId { get; set; }
         public int? SectionId { get; set; }
-        public string? CreateDate { get; set; }
+        public string? CreateDatePersian { get; set; }
+        public DateTime? ReserveDate { get; set; }
+        public DateTime? CreateDate { get; set; }
     }
 }

@@ -45,11 +45,12 @@ export class MenuComponent implements OnInit {
                   {
                     label: 'مدیریت صورتحساب',
                     routerLink: '/pages/Bill'
-                  },
-                  {
-                    label: 'انتقاد و پیشنهادات',
-                    routerLink: '/pages/Reserve'
                   }
+                  // ,
+                  // {
+                  //   label: 'انتقاد و پیشنهادات',
+                  //   routerLink: '/pages/Reserve'
+                  // }
               ]
           }
       ];

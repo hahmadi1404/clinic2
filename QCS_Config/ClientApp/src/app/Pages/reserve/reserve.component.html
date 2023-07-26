@@ -7,22 +7,18 @@
 
 
     <div class="card" style="overflow: inherit !important; max-height:400px" >
-        <p-table [value]="AllData" [tableStyle]="{ 'max-width': '100%' ,'min-height':'700px'}"
+        <p-table [value]="AllData" [tableStyle]="{ 'max-width': '100%' }"
                 [loading]="dataLoading"
                 [scrollable]="true"
-                class="p-datatable-sm"
-                 [globalFilterFields]="['dosierIdReq', 'fullNameReq','reserveDate','status']"
         >
             <ng-template pTemplate="header" style="overflow: inherit">
-                <tr >
-                    <th pSortableColumn="dosierIdReq" style="text-align: right;">شماره پرونده <p-sortIcon field="dosierIdReq"></p-sortIcon></th>
-                    <th pSortableColumn="fullNameReq" style="text-align: right;">نام <p-sortIcon field="fullNameReq"></p-sortIcon></th>
-                    <th style="text-align: right;width: 200px;">تاریخ رزرو</th>
-                    <th pSortableColumn="status" style="text-align: right;width: 300px;">وضعیت <p-sortIcon field="status"></p-sortIcon></th>
-                    <th style="width:10rem;text-align: center;">عملیات</th>
+                <tr style="max-height: 50px!important" >
+                    <th pSortableColumn="dosierIdReq" style="text-align: right;max-height: 50px">شماره پرونده <p-sortIcon field="dosierIdReq"></p-sortIcon></th>
+                    <th pSortableColumn="fullNameReq" style="text-align: right;max-height: 50px">نام <p-sortIcon field="fullNameReq"></p-sortIcon></th>
+                    <th style="text-align: right;width: 200px;max-height: 50px">تاریخ رزرو</th>
+                    <th pSortableColumn="status" style="text-align: right;width: 300px;max-height: 50px">وضعیت <p-sortIcon field="status"></p-sortIcon></th>
+                    <th style="width:10rem;text-align: center;max-height: 50px;">عملیات</th>
                 </tr>
-
-    
                 <tr  >
                     <th >
                         <p-columnFilter  type="text" matchMode="contains" [showMenu]="false"  style="width:10rem;text-align: center;" field="dosierIdReq"></p-columnFilter>
