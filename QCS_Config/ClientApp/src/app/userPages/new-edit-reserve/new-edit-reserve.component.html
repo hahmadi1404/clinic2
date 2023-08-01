@@ -1,0 +1,56 @@
+<div class="container" style="margin-top: 20px;">
+    <div class="row">
+        <h5 class="col" style="direction: rtl; text-align: center;">
+             {{action!='new'?'ویرایش وقت':'درخواست رزرو وقت'}} 
+        </h5>
+    </div>
+
+
+      <form style="direction: rtl; text-align: right; max-width: 500px;margin: auto;" (ngSubmit)="submitForm()" #myForm="ngForm">
+        <div class="form-group">
+          <label for="department">بخش</label>
+          <select class="form-control" id="department" name="department" [(ngModel)]="formData.department" required>
+            <option *ngFor="let department of departments" [value]="department">
+                {{ department }}
+              </option>
+          </select>
+        </div>
+      
+        <div class="form-group">
+          <label for="shift">شیفت</label>
+          <select class="form-control" id="shift" name="shift" [(ngModel)]="formData.shift" required>
+            <option *ngFor="let shift of shifts" [value]="shift">
+                {{ shift }}
+              </option>
+          </select>
+        </div>
+      
+        <div class="form-group">
+          <label for="doctor">پزشک</label>
+          <select disabled="" class="form-control" id="doctor" name="doctor" [(ngModel)]="formData.doctor" required>
+            <option *ngFor="let doctor of doctors" [value]="doctor">
+                {{ doctor }}
+              </option>
+          </select>
+        </div>
+      
+        <div class="form-group">
+          <label for="insurance">بیمه</label>
+          <select  class="form-control" id="insurance" name="insurance"  required>
+            <option selected  *ngFor="let insurance of insurances" [value]="insurance">
+                {{ insurance }}
+              </option>
+          </select>
+        </div>
+      
+        <div class="form-group">
+          <label for="date">تاریخ</label>
+          <input type="text" class="form-control" id="date" name="date" [(ngModel)]="formData.date" required>
+        </div>
+      <div style="display: flex; justify-content: space-between;">
+        <button type="submit" style="width: 200px;" class="btn btn-primary">ارسال درخواست</button>
+        <button type="button" style="width: 200px;" class="btn btn-secondary" (click)="cancelForm()">برگشت</button>
+      </div>
+      </form>
+
+  </div>

@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using Globals;
+using Newtonsoft.Json;
 using QCS_Config;
 using QCS_Config.Models;
 
@@ -24,7 +25,68 @@ namespace LeopardWebService.Controllers
     public class AuthenticateController : Controller
     {
       [HttpPost]
-        public ActionResult Authenticate(AuthenticateModel model)
+        public ActionResult Authenticate(string nationalCode, string phone)
+        {
+            var sqlState = GlobalDB.CheckSQLConnection();
+            if (sqlState != null) return Problem(sqlState.Message, null, 590, "Connection Error", "DB");
+            //var hashFunction = new HMACSHA512(Encoding.ASCII.GetBytes("my HashKey"));
+            UsersModel user = new UsersModel();
+            user.Username = phone;
+            SqlConnection connectionSql = new SqlConnection(Config.All.sqlConnectionString);
+            connectionSql.Open();
+            var sqlCommand = connectionSql.CreateCommand();
+            sqlCommand.CommandText = $"Select ID,Name,LastName,DosierID,InsuranceID,Gender from Patients where PhoneNumber=@PhoneNumber and NationalCode=@NationalCode ";
+            sqlCommand.Parameters.AddWithValue("PhoneNumber",phone );
+            sqlCommand.Parameters.AddWithValue("NationalCode", nationalCode);
+            var dr = sqlCommand.ExecuteReader();
+            Log.Logger.Information("Action:{Action} GetData from Patients", "Authenticate");
+            var patient = new Patient();
+            while (dr.Read())
+            {
+                user.Id = Convert.ToInt32(dr["ID"]);
+                user.Name = Convert.ToString(dr["Name"]) + " "+ Convert.ToString(dr["LastName"]);
+                patient.InsuranceId = Convert.ToInt32(dr["InsuranceID"]);
+                patient.Gender = Convert.ToInt32(dr["Gender"]);
+                patient.DosierId = Convert.ToString(dr["DosierID"]);
+                patient.Name = user.Name;
+                patient.Id = user.Id;
+                user.Comment = JsonConvert.SerializeObject(patient);
+                // user.Permission = dr["ClinicId"].ToString();
+                Log.Logger.Information("Action:{Action} , Name:{Name}", "login", user.Name);
+            }
+            dr.Close();
+            connectionSql.Close();
+            if (user.Name is null) return Unauthorized(Json("Invalid PhoneNumber or NationalCode"));
+
+          
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes("Clinic auth111111111111111111111");
+            var Subject = new ClaimsIdentity(new Claim[]
+               {
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, user.Username),
+                    // new Claim(ClaimTypes.Role, user.Permission),
+                    new Claim(ClaimTypes.UserData,user.Comment ),
+               });
+            var SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = Subject,
+                Expires = DateTime.UtcNow.Add(new TimeSpan(20, 00, 10)),
+                SigningCredentials = SigningCredentials,
+
+            };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            string tokenString = tokenHandler.WriteToken(token);
+            user.Pass = tokenString;
+          
+
+            return Json(user);
+        }
+        
+         public ActionResult adminAuthenticate(AuthenticateModel model)
         {
             var sqlState = GlobalDB.CheckSQLConnection();
             if (sqlState != null) return Problem(sqlState.Message, null, 590, "Connection Error", "DB");
@@ -52,7 +114,7 @@ namespace LeopardWebService.Controllers
 
           
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("Clinic auth key111111111111111111111111111111111111111111111111");
+            var key = Encoding.ASCII.GetBytes("Clinic auth");
             var Subject = new ClaimsIdentity(new Claim[]
                {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),

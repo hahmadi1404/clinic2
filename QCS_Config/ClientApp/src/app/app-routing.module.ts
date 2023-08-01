@@ -15,11 +15,17 @@ import { GraphyComponent } from './Pages/graphy/graphy.component';
 import { BillComponent } from './bill/bill.component';
 import { UserLoginComponent } from './userPages/user-login/user-login.component';
 import { RegisterComponent } from './userPages/register/register.component';
+import { UserMainPageComponent } from './userPages/user-main-page/user-main-page.component';
+import { MyHomePageComponent } from './userPages/my-home-page/my-home-page.component';
+import { MyReserveComponent } from './userPages/my-reserve/my-reserve.component';
+import { NewEditReserveComponent } from './userPages/new-edit-reserve/new-edit-reserve.component';
+import { adminAuthGuard } from './Services/adminAuth-guard.service';
 
 const routes: Routes = [
-  { path: 'logout',  component: LogoutComponent },
-  {path:'',redirectTo:'/pages',pathMatch:'full'},
-  { path: 'pages', component: MainPageComponent ,children:[
+  { path: 'adminLogout',  component: LogoutComponent },
+  {path:'adminLogin',component:LoginComponent},
+  {path:'',redirectTo:'/pages/home',pathMatch:'full'},
+  { path: 'adminPages', component: MainPageComponent ,children:[
     {path:'',component: HomePageComponent},
     {path:'Introduction',component: IntroductionPageComponent},
     {path:'Services',component: ServicesPageComponent},
@@ -27,7 +33,20 @@ const routes: Routes = [
     {path:'Reserve',component: ReserveComponent},
     {path:'Graphy',component: GraphyComponent},
     {path:'Bill',component: BillComponent},
-  ] ,canActivate: [AuthGuard]},
+  ] ,canActivate: [adminAuthGuard]},
+  { path: 'pages', component: UserMainPageComponent ,children:[
+    {path:'home',component: MyHomePageComponent},
+    {path:'Introduction',component: IntroductionPageComponent},
+    {path:'Services',component: ServicesPageComponent},
+    {path:'Doctors',component: DoctorsComponent},
+    {path:'reserve/new',component: NewEditReserveComponent},
+    {path:'reserve/edit',component: NewEditReserveComponent},
+    {path:'reserve',component: MyReserveComponent},
+    {path:'Graphy',component: GraphyComponent},
+    {path:'Bill',component: BillComponent},
+
+   ] ,canActivate: [AuthGuard]},
+  {path: 'logout',  component: LogoutComponent },
   {path:'login',component:UserLoginComponent},
   {path:'register',component:RegisterComponent}
   // {path:'login',component:LoginComponent}

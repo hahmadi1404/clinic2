@@ -11,7 +11,7 @@
     "QCS_Config": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "http://localhost:8096",
+      "applicationUrl": "http://localhost:8098",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
         
@@ -21,8 +21,7 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
   }

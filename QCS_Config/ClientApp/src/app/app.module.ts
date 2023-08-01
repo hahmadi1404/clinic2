@@ -38,6 +38,12 @@ import { DropdownModule } from 'primeng/dropdown';
 import { UserLoginComponent } from './userPages/user-login/user-login.component';
 import { RegisterComponent } from './userPages/register/register.component';
 import { MyReserveComponent } from './userPages/my-reserve/my-reserve.component';
+import { UserMainPageComponent } from './userPages/user-main-page/user-main-page.component';
+import { SidebarModule } from 'primeng/sidebar';
+import { MyHomePageComponent } from './userPages/my-home-page/my-home-page.component';
+import { NewEditReserveComponent } from './userPages/new-edit-reserve/new-edit-reserve.component';
+import { LoginService } from './Services/login.service';
+import { RequestService } from './Services/request.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +61,10 @@ import { MyReserveComponent } from './userPages/my-reserve/my-reserve.component'
     BillComponent,
     UserLoginComponent,
     RegisterComponent,
-    MyReserveComponent
+    MyReserveComponent,
+    UserMainPageComponent,
+    MyHomePageComponent,
+    NewEditReserveComponent
   ],
   imports: [
     BrowserModule,
@@ -78,9 +87,10 @@ import { MyReserveComponent } from './userPages/my-reserve/my-reserve.component'
     SelectButtonModule,
     TagModule,
     MultiSelectModule,
-    DropdownModule
+    DropdownModule,
+    SidebarModule,
   ],
-  providers: [MessageService,ConfirmationService],
+  providers: [MessageService,ConfirmationService,LoginService,RequestService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

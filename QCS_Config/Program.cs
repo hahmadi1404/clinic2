@@ -95,13 +95,13 @@ builder.Services.AddAuthentication(x =>
                       ValidateIssuerSigningKey = true,
                       //ValidIssuer = "Kavosh 3 HostGuest Issuer",
                       //ValidAudience = "Kavosh 3 HostGuest Audience",
-                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("Clinic auth key111111111111111111111111111111111111111111111111")),
+                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("Clinic auth111111111111111111111")),
                       ClockSkew = new TimeSpan(00, 01, 00),
                   };    
               });
 
             builder.Services.AddDbContext<QCS_Config.Models.DBContext>(options => options.UseSqlServer(Config.All.sqlConnectionString));
-builder.Services.AddSwaggerGen(options =>
+            builder.Services.AddSwaggerGen(options =>
             {
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
@@ -172,7 +172,7 @@ var app = builder.Build();
             app.UseAuthorization();
           
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kavosh v3"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", ""));
             if (app.Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

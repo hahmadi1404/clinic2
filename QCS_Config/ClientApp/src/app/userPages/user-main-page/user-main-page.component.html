@@ -1,0 +1,36 @@
+<p-sidebar [(visible)]="visibleSidebar" position="right" [baseZIndex]="10000">
+  <div style="display: flex; justify-content: center;">
+    <img src="../../assets/miniLogo.png" width="150" height="150" class="d-inline-block align-top" alt="">
+
+  </div>
+<img>
+    <!-- <p-button type="button" (click)="visibleSidebar = false" label="Save" styleClass="p-button-success"></p-button>
+    <p-button type="button" (click)="visibleSidebar = false" label="Cancel" styleClass="p-button-secondary"></p-button> -->
+    <ul (click)="visibleSidebar = false">
+        <li> <a class="active" routerLink ="/pages/home"><i class="icon fa fa-home"></i> خانه</a></li>
+        <li> <a  class="disabled" routerLink ="/pages/intro"><i class="  icon fa fa-presentation"></i> معرفی کلینیک</a></li>
+        <li> <a  class="disabled" routerLink ="/pages/service"><i class="  icon fa fa-cube"></i> خدمات</a></li>
+        <li> <a  class="disabled" routerLink ="/pages/doctor"><i class="  icon fa fa-user-md"></i> پزشکان</a></li>
+        <li> <a  class="" routerLink ="/pages/reserve"><i class="  icon fa fa-clock"></i> وقت های من</a></li>
+        <li> <a  class="disabled" routerLink ="/pages/graphy"><i class="  icon fa fa-x-ray"></i> گرافی های من</a></li>
+        <li> <a  class="disabled" routerLink ="/pages/bill"><i class="  icon fa fa-wallet"></i> صورتحسابهای من</a></li>
+        <li> <a  class="disabled" routerLink ="/pages/comment"><i class="  icon fa fa-comments"></i> انتقادات و پیشنهادات</a></li>
+        <li> <a  class="disabled" routerLink ="/pages/contactUs"><i class="  icon fa fa-phone"></i> تماس با ما</a></li>
+      </ul>
+</p-sidebar>
+
+<nav class="navbar navbar-light bg-light" >
+
+    <a class="navbar-brand" style="width: 40px;" routerLink ="">
+        <img src="../../assets/miniLogo.png" width="50" height="50" class="d-inline-block align-top" alt="">
+      </a>
+      <!-- <h1>بیمارستان شهید شکری</h1> -->
+      <div style="font-size:3.5vmin; font-weight: 600; ">بیمارستان شهید شکری </div>
+
+    <button class="navbar-toggler" type="button" (click)="visibleSidebar=true" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+  </nav>
+  <router-outlet flex align-items-left justify-content-left class=""></router-outlet>
+  <img src="../../assets/back1.jpg" style="position: fixed;right: 0;bottom: 0; opacity: 0.4;z-index: -1;"alt="">

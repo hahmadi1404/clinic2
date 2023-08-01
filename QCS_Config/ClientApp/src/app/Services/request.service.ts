@@ -9,7 +9,7 @@ import {EMPTY_OBSERVER} from "rxjs/internal/Subscriber";
 })
 export class RequestService {
 
-
+name:string="";
   // dataSource: MatTableDataSource<DataResultModel> = new MatTableDataSource();
 
   constructor(private http: HttpClient, private loginService: LoginService) {
@@ -118,6 +118,7 @@ GetAgreement() {
 
 
 //Insurance
+Insurances:any=null;
 GetInsurance() {
   return this.http.get('./api/Insurance');
 }

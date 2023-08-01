@@ -3,13 +3,14 @@ import { FormControl,FormGroup,Validators,FormBuilder, NgForm } from '@angular/f
 import { LoginService } from '../Services/login.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { sha512 } from 'js-sha512';
+import { adminLoginService } from '../Services/adminLogin.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  constructor(private loginService: LoginService, private router: Router, private route: ActivatedRoute) {
+  constructor(private loginService: adminLoginService, private router: Router, private route: ActivatedRoute) {
   }
 
 
@@ -21,12 +22,12 @@ export class LoginComponent {
     }
     this.loginService.login(form.value.userName, sha512.hmac("my HashKey", form.value.password)).subscribe((e:any) => {
       if (e != null) {
-          this.loginService.setCookie('user', e.name, 100000);
-          this.loginService.setCookie('username', e.username, 100000);
-          this.loginService.setCookie('token', e.pass, 100000);
-          this.loginService.setCookie('permission', e.permission.toString(), 100000);
+          this.loginService.setCookie('adminUser', e.name, 100000);
+          this.loginService.setCookie('adminUsername', e.username, 100000);
+          this.loginService.setCookie('adminToken', e.pass, 100000);
+          this.loginService.setCookie('adminPermission', e.permission.toString(), 100000);
           this.loginService.isLogin = true;
-          this.router.navigate(['/']);
+          this.router.navigate(['/adminPages/home']);
       } else {
         alert("نام کاربری یا کلمه عبور اشتباه می باشد");
       }}
