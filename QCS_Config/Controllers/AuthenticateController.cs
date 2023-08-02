@@ -51,6 +51,7 @@ namespace LeopardWebService.Controllers
                 patient.Name = user.Name;
                 patient.Id = user.Id;
                 user.Comment = JsonConvert.SerializeObject(patient);
+                user.Permission = "1";
                 // user.Permission = dr["ClinicId"].ToString();
                 Log.Logger.Information("Action:{Action} , Name:{Name}", "login", user.Name);
             }

@@ -6,12 +6,12 @@
     </div>
 
 
-      <form style="direction: rtl; text-align: right; max-width: 500px;margin: auto;" (ngSubmit)="submitForm()" #myForm="ngForm">
+      <form style="direction: rtl; text-align: right; max-width: 500px;margin: auto;" #f="ngForm"  (ngSubmit)="submitForm(f)" #myForm="ngForm">
         <div class="form-group">
           <label for="department">بخش</label>
           <select class="form-control" id="department" name="department" [(ngModel)]="formData.department" required>
-            <option *ngFor="let department of departments" [value]="department">
-                {{ department }}
+            <option *ngFor="let department of reqService.departments" [value]="department.id">
+                {{ department.departmentName }}
               </option>
           </select>
         </div>
@@ -19,8 +19,8 @@
         <div class="form-group">
           <label for="shift">شیفت</label>
           <select class="form-control" id="shift" name="shift" [(ngModel)]="formData.shift" required>
-            <option *ngFor="let shift of shifts" [value]="shift">
-                {{ shift }}
+            <option *ngFor="let shift of reqService.shifts" [value]="shift.id">
+                {{ shift.shiftName }}
               </option>
           </select>
         </div>
@@ -37,7 +37,7 @@
         <div class="form-group">
           <label for="insurance">بیمه</label>
           <select  class="form-control" id="insurance" name="insurance"  required>
-            <option selected  *ngFor="let insurance of insurances" [value]="insurance">
+            <option selected  *ngFor="let insurance of reqService.myInsurance" [value]="insurance">
                 {{ insurance }}
               </option>
           </select>
@@ -45,8 +45,13 @@
       
         <div class="form-group">
           <label for="date">تاریخ</label>
-          <input type="text" class="form-control" id="date" name="date" [(ngModel)]="formData.date" required>
+              <ng-persian-datepicker [uiHideAfterSelectDate]="true" [dateValue]="myDate"  (dateOnSelect)="onDateChange($event)">
+          
+          <input type="text" class="form-control" id="date" name="date" [ngModel]="dateValue1" required>
+        </ng-persian-datepicker>
         </div>
+
+    
       <div style="display: flex; justify-content: space-between;">
         <button type="submit" style="width: 200px;" class="btn btn-primary">ارسال درخواست</button>
         <button type="button" style="width: 200px;" class="btn btn-secondary" (click)="cancelForm()">برگشت</button>

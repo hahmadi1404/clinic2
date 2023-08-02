@@ -75,6 +75,12 @@ RemoveDoctor(data:any) {
 GetReserves() {
   return this.http.get('./api/Reserve', {headers: {'Authorization': `Bearer ${this.loginService.getCookie('token')}`}});
 }
+
+AddReserve(data:any) {
+  console.log(data);
+  return this.http.post('./api/Reserve/'+data.reserveId, data, {headers: {'Authorization': `Bearer ${this.loginService.getCookie('token')}`}});
+}
+
 UpdateReserve(data:any) {
   console.log(data);
   return this.http.put('./api/Reserve/'+data.reserveId, data, {headers: {'Authorization': `Bearer ${this.loginService.getCookie('token')}`}});
@@ -119,9 +125,29 @@ GetAgreement() {
 
 //Insurance
 Insurances:any=null;
+myInsurance:string[]=[];
+myInsuranceId=-1;
 GetInsurance() {
   return this.http.get('./api/Insurance');
 }
+
+
+
+
+//Department
+departments:any=null;
+GetDepartment() {
+  return this.http.get('./api/Department');
+}
+
+
+
+//Shift
+shifts:any=null;
+GetShift() {
+  return this.http.get('./api/Shift');
+}
+
 
 
 //Patient

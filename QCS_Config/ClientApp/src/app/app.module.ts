@@ -44,6 +44,9 @@ import { MyHomePageComponent } from './userPages/my-home-page/my-home-page.compo
 import { NewEditReserveComponent } from './userPages/new-edit-reserve/new-edit-reserve.component';
 import { LoginService } from './Services/login.service';
 import { RequestService } from './Services/request.service';
+
+import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -89,6 +92,7 @@ import { RequestService } from './Services/request.service';
     MultiSelectModule,
     DropdownModule,
     SidebarModule,
+    NgPersianDatepickerModule
   ],
   providers: [MessageService,ConfirmationService,LoginService,RequestService],
   bootstrap: [AppComponent]
