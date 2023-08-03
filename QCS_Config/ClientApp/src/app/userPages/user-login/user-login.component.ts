@@ -42,8 +42,10 @@ onSubmit(form: NgForm) {
           this.loginService.setCookie('name', userData.Name, 100000);
           this.loginService.setCookie('gender', userData.Gender, 100000);
           this.loginService.setCookie('insuranceId', userData.InsuranceId, 100000);
-          // this.loginService.setCookie('userData', userData, 100000);
+          this.loginService.setCookie('phoneNumber', e.username, 100000);
+          this.loginService.setCookie('nationalCode', userData.NationalCode, 100000);
           this.loginService.setCookie('permission', e.permission.toString(), 100000);
+          this.loginService.setCookie('dosierId', userData.DosierId, 100000);
           this.loginService.isLogin = true;
           this.router.navigate(['']);
       } else {

@@ -1,10 +1,13 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Globals;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PersianDate.Standard;
 using QCS_Config.Models;
 
 namespace QCS_Config.Controllers
@@ -90,8 +93,22 @@ namespace QCS_Config.Controllers
         [HttpPost]
         public async Task<ActionResult<Reserve>> PostReserve(Reserve reserve)
         {
+            try
+            {
+
+           
             reserve.ClinicId=getClinicId();
-          if (_context.Reserves == null)
+            reserve.ReserveDate = reserve.ReserveDatePersian.ToEn();
+            reserve.CreateDate = DateTime.Now;
+            reserve.CreateDatePersian = DateTime.Now.ToFa();
+            var receptionCount = GlobalDB.ReceptionCount(reserve.ShiftId??-1, reserve.InsuranceId??-1);
+            var date = DateTime.Now;
+            if (GlobalDB.ReserveCount(date, reserve.ShiftId ?? -1, reserve.InsuranceId ?? -1) == receptionCount)
+            {
+                return ValidationProblem("در روز و شیفت انتخابی امکان ثبت نداریم ، ظرفیت پر شده");
+            }
+
+                if (_context.Reserves == null)
           {
               return Problem("Entity set 'DBContext.Reserves'  is null.");
           }
@@ -110,6 +127,12 @@ namespace QCS_Config.Controllers
                 {
                     throw;
                 }
+            }
+            }
+            catch (Exception)
+            {
+
+                return Forbid("در روز و شیفت انتخابی امکان ثبت نداریم ، ظرفیت پر شده");
             }
 
             return CreatedAtAction("GetReserve", new { id = reserve.ReserveId }, reserve);

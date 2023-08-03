@@ -11,8 +11,7 @@ import { RequestService } from 'src/app/Services/request.service';
   styleUrls: ['./new-edit-reserve.component.css']
 })
 export class NewEditReserveComponent implements AfterViewInit {
-  public dateValue = new FormControl();
-
+  
   action="new";
 
   formData: any = {};
@@ -28,34 +27,52 @@ export class NewEditReserveComponent implements AfterViewInit {
     console.log(this.reqService.shifts);
     console.log("this.reqService.departments");
     console.log(this.reqService.departments);
-  }
+    this.dateValue=this.myDate.value;
+    this.formData.department=1;
+    this.formData.shift=1;
 
+  }
+  getFirstDate(){
+    this.reqService.GetFirstDate(this.formData.shift,this.reqService.myInsuranceId).subscribe(a=>{
+      console.log(a);
+      console.log(this.myDate);
+      this.myDate.value=a;
+      this.dateValue=a.toString();
+      
+    });
+  }
   submitForm(form:NgForm) {
     if (form.valid) {
       console.log(form); // نمایش آبجکت در کنسول
-      let phone:string=form.value.phone_number;
-      let nationalCode:string=form.value.national_code;
+      let data={
+        "mobile": this.reqService.myPhoneNumber,
+        "nationalCode": this.reqService.myNationalCode,
+        "dosierIdReq": this.reqService.myDosierId,
+        "fullNameReq": this.reqService.myName,
+        "nationalCodeReq": this.reqService.myNationalCode,
+        "mobileReq": this.reqService.myPhoneNumber,
+        "genderReq": this.reqService.myGender,
+        // "ageReq": 0,
+        "reserveDatePersian": this.dateValue,
+        // "status": "string",
+        "shiftId":this.formData.shift,
+        // "drId": 0,
+        "insuranceId": this.reqService.myInsuranceId,
+        "sectionId": this.formData.department,
+        "createDatePersian": Jalali.now().format('YYYY/MM/DD'),
+      };
+
+    
 // this.reqService.AddReserve()
-      this.loginService.login(nationalCode,phone).subscribe((e:any) => {
-        if (e != null) {
-            this.loginService.setCookie('user', e.name, 100000);
-            this.loginService.setCookie('username', e.username, 100000);
-            this.loginService.setCookie('token', e.pass, 100000);
-            let userData=JSON.parse(e.comment);
-            
-            // this.reqService.name=userData.Name;
-            this.loginService.setCookie('name', userData.Name, 100000);
-            this.loginService.setCookie('gender', userData.Gender, 100000);
-            this.loginService.setCookie('insuranceId', userData.InsuranceId, 100000);
-            // this.loginService.setCookie('userData', userData, 100000);
-            // this.loginService.setCookie('permission', e.permission.toString(), 100000);
-            this.loginService.isLogin = true;
-            this.router.navigate(['']);
-        } else {
-          alert("نام کاربری یا کلمه عبور اشتباه می باشد");
-        }}
+      this.reqService.AddReserve(data).subscribe((e:any) => {
+        // if (e != null) {
+           console.log(e);
+        // } else {
+          alert("درخواست شما به دررستی ثبت شد");
+        // }
+      }
         , (error:any) => {
-          alert("نام کاربری یا کلمه عبور اشتباه می باشد");
+          alert(error);
         });
   
   
@@ -65,11 +82,13 @@ export class NewEditReserveComponent implements AfterViewInit {
       alert("لطفا مقادیر خواسته شده را درست وارد نمایید") ;return
     }
   }
- 
+  // dateValue = new FormControl();
 
+  myDate:any= new FormControl();
+  dateValue="";
   onDateChange(e:any){
 console.log(e)
-// this.dateValue1=e.shamsi;
+this.dateValue=e.shamsi;
   }
   cancelForm() {
     this.formData = {};

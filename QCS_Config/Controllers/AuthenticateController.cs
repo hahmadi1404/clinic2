@@ -49,10 +49,12 @@ namespace LeopardWebService.Controllers
                 patient.Gender = Convert.ToInt32(dr["Gender"]);
                 patient.DosierId = Convert.ToString(dr["DosierID"]);
                 patient.Name = user.Name;
+                patient.NationalCode = nationalCode;
+                patient.PhoneNumber = phone;
                 patient.Id = user.Id;
                 user.Comment = JsonConvert.SerializeObject(patient);
                 user.Permission = "1";
-                // user.Permission = dr["ClinicId"].ToString();
+                //user.Permission = dr["ClinicId"].ToString();
                 Log.Logger.Information("Action:{Action} , Name:{Name}", "login", user.Name);
             }
             dr.Close();
@@ -66,7 +68,7 @@ namespace LeopardWebService.Controllers
                {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                     new Claim(ClaimTypes.Name, user.Username),
-                    // new Claim(ClaimTypes.Role, user.Permission),
+                    new Claim(ClaimTypes.Role, user.Permission),
                     new Claim(ClaimTypes.UserData,user.Comment ),
                });
             var SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature);
@@ -86,8 +88,8 @@ namespace LeopardWebService.Controllers
 
             return Json(user);
         }
-        
-         public ActionResult adminAuthenticate(AuthenticateModel model)
+        [HttpPost]
+        public ActionResult adminAuthenticate(AuthenticateModel model)
         {
             var sqlState = GlobalDB.CheckSQLConnection();
             if (sqlState != null) return Problem(sqlState.Message, null, 590, "Connection Error", "DB");

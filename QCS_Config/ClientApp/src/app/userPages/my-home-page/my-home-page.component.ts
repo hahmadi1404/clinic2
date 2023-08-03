@@ -20,9 +20,7 @@ export class MyHomePageComponent implements OnInit {
   }
   ngOnInit(): void {
     // if(this.userData==null) this.userData=JSON.parse() ;
-    this.gender=Number(this.loginService.getCookie('gender'));
-    this.name=this.loginService.getCookie('name');
+    
   }
-  gender=0;
-  name=""
+
 }

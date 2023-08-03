@@ -10,6 +10,13 @@ import { RequestService } from 'src/app/Services/request.service';
 export class UserMainPageComponent {
 
   constructor(public  reqService:RequestService,private loginService:LoginService) {
+    this.reqService.myGender=Number(this.loginService.getCookie('gender'));
+    this.reqService.myName=this.loginService.getCookie('name');
+    this.reqService.myClinicId=Number(this.loginService.getCookie('permission'));
+    this.reqService.myNationalCode=this.loginService.getCookie('nationalCode');
+    this.reqService.myPhoneNumber=this.loginService.getCookie('phoneNumber');
+    this.reqService.myDosierId=this.loginService.getCookie('dosierId');
+
     reqService.GetInsurance().subscribe((data:any)=>{
       console.log(data);
       let myInsurance=Number(this.loginService.getCookie('insuranceId'));

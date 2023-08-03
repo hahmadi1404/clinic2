@@ -42,19 +42,28 @@
               </option>
           </select>
         </div>
-      
+              
         <div class="form-group">
-          <label for="date">تاریخ</label>
-              <ng-persian-datepicker [uiHideAfterSelectDate]="true" [dateValue]="myDate"  (dateOnSelect)="onDateChange($event)">
           
-          <input type="text" class="form-control" id="date" name="date" [ngModel]="dateValue1" required>
+          <label for="date">تاریخ</label>
+              <ng-persian-datepicker [uiHideAfterSelectDate]="true" [dateInitValue]="true"  [dateValue]="myDate"  (dateOnSelect)="onDateChange($event)">
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" id="date" name="date" [ngModel]="dateValue" aria-describedby="basic-addon1" required>
+                  <div class="input-group-prepend">
+                    <button class="btn btn-success" (click)="getFirstDate()" type="button">اولین وقت</button>
+                  </div>
+                  <!-- <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"> -->
+                </div>
+
+          
         </ng-persian-datepicker>
+        
         </div>
 
     
-      <div style="display: flex; justify-content: space-between;">
+      <div style="display: flex; justify-content: space-between;margin-top: 30px;">
         <button type="submit" style="width: 200px;" class="btn btn-primary">ارسال درخواست</button>
-        <button type="button" style="width: 200px;" class="btn btn-secondary" (click)="cancelForm()">برگشت</button>
+        <!-- <button type="button" style="width: 200px;" class="btn btn-secondary" (click)="cancelForm()">برگشت</button> -->
       </div>
       </form>
 

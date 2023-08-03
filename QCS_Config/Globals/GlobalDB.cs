@@ -8,12 +8,37 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using QCS_Config.Models;
-
+using PersianDate.Standard;
 
 namespace Globals
 {
     public static class GlobalDB
     {
+        //هر شیف و بیمه چند تا تو تاریخ خاصی داره
+        public static int ReserveCount(DateTime date, int shiftId, int insuranceId)
+        {
+            SqlConnection connectionSql = new SqlConnection(Config.All.sqlConnectionString);
+            connectionSql.Open();
+            var sqlCommand = connectionSql.CreateCommand();
+            sqlCommand.CommandText = $"select count(*) from Reserve where Reserve_Date_Persian='{date.ToFa()}' and ShiftID=@shiftId and InsuranceId=@insuranceId ";
+            sqlCommand.Parameters.AddWithValue("shiftId", shiftId);
+            sqlCommand.Parameters.AddWithValue("insuranceId", insuranceId);
+            int count = Convert.ToInt32(sqlCommand.ExecuteScalar());
+            return count;
+        }
+        //هر شیفت و بیمه چند تا می تونه رزرو داشته باشه
+        public static int  ReceptionCount(int shiftId, int insuranceId)
+        {
+            SqlConnection connectionSql = new SqlConnection(Config.All.sqlConnectionString);
+            connectionSql.Open();
+            var sqlCommand = connectionSql.CreateCommand();
+            sqlCommand.CommandText = $"select count from ReceptionCount where shiftId=@shiftId and insuranceId=@insuranceId ";
+            sqlCommand.Parameters.AddWithValue("shiftId", shiftId);
+            sqlCommand.Parameters.AddWithValue("insuranceId", insuranceId);
+            int count =Convert.ToInt32( sqlCommand.ExecuteScalar());
+            return count;
+        }
+
         // public static string SQLConnectionString;
 
         public static Exception CheckSQLConnection()

@@ -8,8 +8,12 @@ import {EMPTY_OBSERVER} from "rxjs/internal/Subscriber";
   providedIn: 'root'
 })
 export class RequestService {
-
-name:string="";
+  myGender=-1;
+  myName:string="";
+  myClinicId:number=-1;
+  myNationalCode:string="";
+  myPhoneNumber:string="";
+  myDosierId:string="";
   // dataSource: MatTableDataSource<DataResultModel> = new MatTableDataSource();
 
   constructor(private http: HttpClient, private loginService: LoginService) {
@@ -78,7 +82,7 @@ GetReserves() {
 
 AddReserve(data:any) {
   console.log(data);
-  return this.http.post('./api/Reserve/'+data.reserveId, data, {headers: {'Authorization': `Bearer ${this.loginService.getCookie('token')}`}});
+  return this.http.post('./api/Reserve', data, {headers: {'Authorization': `Bearer ${this.loginService.getCookie('token')}`}});
 }
 
 UpdateReserve(data:any) {
@@ -164,6 +168,8 @@ AddPatient(data:any) {
 //   return this.http.delete('./api/Patient/'+data.Id, {headers: {'Authorization': `Bearer ${this.loginService.getCookie('token')}`}});
 // }
 
-
+GetFirstDate(shiftId:any,insuranceId:any){
+  return this.http.get(`./Action/GetFirstReserveDate?shiftId=${shiftId}&insuranceId=${insuranceId}`, {headers: {'Authorization': `Bearer ${this.loginService.getCookie('token')}`}});
+}
 
 }
