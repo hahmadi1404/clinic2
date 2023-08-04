@@ -26,17 +26,26 @@ namespace QCS_Config.Controllers
         {
             return Convert.ToInt32(User.Claims.First(a => a.Type.ToLower().Contains("role")).Value);
         }
+        private string getUserName()
+        {
+            return Convert.ToString(User.Claims.First(a => a.Type.ToLower()== "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").Value);
+        }
 
         // GET: api/Reserve
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Reserve>>> GetReserves()
         {
+            string userName = getUserName();
             int cId = getClinicId();
           if (_context.Reserves == null)
           {
               return NotFound();
           }
-            return await _context.Reserves.Where(a=>a.ClinicId==cId).ToListAsync();
+            
+            if (userName[0]== '0') return await _context.Reserves.Where(a => a.ClinicId == cId && a.Mobile == userName).ToListAsync();
+            return await _context.Reserves.Where(a => a.ClinicId == cId).ToListAsync();
+
+           
         }
      
         // GET: api/Reserve/5
@@ -102,10 +111,12 @@ namespace QCS_Config.Controllers
             reserve.CreateDate = DateTime.Now;
             reserve.CreateDatePersian = DateTime.Now.ToFa();
             var receptionCount = GlobalDB.ReceptionCount(reserve.ShiftId??-1, reserve.InsuranceId??-1);
-            var date = DateTime.Now;
-            if (GlobalDB.ReserveCount(date, reserve.ShiftId ?? -1, reserve.InsuranceId ?? -1) == receptionCount)
+            
+
+                if((DateTime.Now - reserve.ReserveDate).Value.Days>0) return ValidationProblem("تاریخ انتخابی نباید از گذشته باشد");
+                if (GlobalDB.ReserveCount(DateTime.Now, reserve.ShiftId ?? -1, reserve.InsuranceId ?? -1) == receptionCount)
             {
-                return ValidationProblem("در روز و شیفت انتخابی امکان ثبت نداریم ، ظرفیت پر شده");
+                return ValidationProblem("در روز و شیفت و بیمه انتخابی امکان ثبت نداریم ، ظرفیت پر شده");
             }
 
                 if (_context.Reserves == null)

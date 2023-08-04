@@ -1,10 +1,32 @@
-<div class="container" style="margin-top: 20px;">
+<div class="container" style="margin-top: 20px;direction: rtl;">
     <div class="row">
         <h5 class="col" style="direction: rtl; text-align: center;">
             تاریخچه درخواست های رزرو وقت
         </h5>
     </div>
-
-    
+<div class="col" style="float: right;"> <a type="button" routerLink ="/pages/reserve/new" role="button" class="menubtn btn btn-outline-primary">گرفتن نوبت (رزرو وقت)</a> </div>
+    <div class="container mt-5">
+        
+        <table class="table">
+          <thead>
+            <tr>
+              <th>تاریخ رزرو</th>
+              <th>بخش</th>
+              <th>شیفت</th>
+              <!-- <th>پزشک</th> -->
+              <th>وضعیت</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let reserve of reserves">
+              <td>{{ reserve.reserveDatePersian }}</td>
+              <td>{{ reserve.department }}</td>
+              <td>{{ reserve.shift }}</td>
+              <!-- <td>{{ reserve?.doctor }}</td> -->
+              <td>{{ reserve.status }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
   </div>

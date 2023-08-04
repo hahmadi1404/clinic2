@@ -7,7 +7,7 @@
     <!-- <p-button type="button" (click)="visibleSidebar = false" label="Save" styleClass="p-button-success"></p-button>
     <p-button type="button" (click)="visibleSidebar = false" label="Cancel" styleClass="p-button-secondary"></p-button> -->
     <ul (click)="visibleSidebar = false">
-        <li> <a class="active" routerLink ="/pages/home"><i class="icon fa fa-home"></i> خانه</a></li>
+        <li> <a [ngClass]="{'active': true}"  routerLink ="/pages/home"><i class="icon fa fa-home"></i> خانه</a></li>
         <li> <a  class="disabled" routerLink ="/pages/intro"><i class="  icon fa fa-presentation"></i> معرفی کلینیک</a></li>
         <li> <a  class="disabled" routerLink ="/pages/service"><i class="  icon fa fa-cube"></i> خدمات</a></li>
         <li> <a  class="disabled" routerLink ="/pages/doctor"><i class="  icon fa fa-user-md"></i> پزشکان</a></li>
@@ -32,5 +32,10 @@
       </button>
 
   </nav>
-  <router-outlet flex align-items-left justify-content-left class=""></router-outlet>
+   <router-outlet *ngIf="i==0" flex align-items-left justify-content-left class=""></router-outlet>
+   <div *ngIf="i!=0" style="margin: auto auto auto auto; text-align: center; ">
+    <div style="height:40%;"></div>
+    <div style="height:40%;"><i class="fas fa-5x fa-spinner fa-pulse"></i></div>
+    
+   </div>
   <img src="../../assets/back1.jpg" style="position: fixed;right: 0;bottom: 0; opacity: 0.4;z-index: -1;"alt="">

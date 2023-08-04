@@ -32,16 +32,20 @@ export class NewEditReserveComponent implements AfterViewInit {
     this.formData.shift=1;
 
   }
+  firstDateLoading=false;
   getFirstDate(){
+    this.firstDateLoading=true;
     this.reqService.GetFirstDate(this.formData.shift,this.reqService.myInsuranceId).subscribe(a=>{
       console.log(a);
       console.log(this.myDate);
       this.myDate.value=a;
       this.dateValue=a.toString();
-      
+      this.firstDateLoading=false;
     });
   }
+  SendLoading=false;
   submitForm(form:NgForm) {
+    this.SendLoading=true;
     if (form.valid) {
       console.log(form); // نمایش آبجکت در کنسول
       let data={
@@ -68,19 +72,24 @@ export class NewEditReserveComponent implements AfterViewInit {
         // if (e != null) {
            console.log(e);
         // } else {
+          this.SendLoading=false;
           alert("درخواست شما به دررستی ثبت شد");
+          this.router.navigate(['/pages/reserve']);
         // }
       }
         , (error:any) => {
-          alert(error);
+          this.SendLoading=false;
+          console.log(error);
+          alert(error.error.detail);
         });
   
   
   
     }else{
-
+      this.SendLoading=false;
       alert("لطفا مقادیر خواسته شده را درست وارد نمایید") ;return
     }
+    
   }
   // dateValue = new FormControl();
 
