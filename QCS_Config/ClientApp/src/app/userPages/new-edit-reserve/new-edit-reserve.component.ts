@@ -92,14 +92,14 @@ export class NewEditReserveComponent implements AfterViewInit {
     
   }
   // dateValue = new FormControl();
-
+  goBack() {
+    window.history.back();
+  }
   myDate:any= new FormControl();
   dateValue="";
   onDateChange(e:any){
 console.log(e)
 this.dateValue=e.shamsi;
   }
-  cancelForm() {
-    this.formData = {};
-  }
+
 }

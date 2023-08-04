@@ -36,7 +36,18 @@ export class RegisterComponent {
     }
   }
 
-
+  validateIranianNationalCode(input:any) {
+    if (!/^\d{10}$/.test(input))
+        return false;
+    let check = parseInt(input[9]);
+    let sum = 0;
+    let i;
+    for (i = 0; i < 9; ++i) {
+        sum += parseInt(input[i]) * (10 - i);
+    }
+    sum %= 11;
+    return (sum < 2 && check == sum) || (sum >= 2 && check + sum == 11);
+}
   formData: any = {}; // آبجکت برای ذخیره مقادیر فرم
 
   onSubmit(form: NgForm) {
@@ -48,14 +59,23 @@ export class RegisterComponent {
       this.formData.phoneNumber = form.value.phone_number;
       this.formData.insuranceId =Number( form.value.insurance);
       this.formData.gender = Number(form.value.gender);
-
+      if(this.validateIranianNationalCode(this.formData.nationalCode)==false) {alert("کد ملی صحیحی وارد نمایید");return}
       console.log(this.formData); // نمایش آبجکت در کنسول
       console.log(form.value); // نمایش آبجکت در کنسول
 
       this.reqService.AddPatient(this.formData).subscribe(a=>{
+        alert("ثبت نام شما با موفقیت انجام شد حالا می توانید وارد سیستم شوید");
         this.router.navigate(['login']);
+      },error=>{
+        alert("ثبت نام با مشکل مواجه شد");
       })
     }else{
+      let a:any=form.controls;
+      if(a.phone_number.valid==false)  {alert("لطفا شماره تلفن همراه خواسته شده را درست وارد نمایید مثال: 09123456789") ;return}
+      if(a.national_code.valid==false)  {alert("لطفا کد ملی خواسته شده را درست وارد نمایید") ;return}
+      if(a.name.valid==false || a.last_name.valid==false )  {alert("لطفا نام و نام خانوادگی را وارد نمایید") ;return}
+      if(a.insurance.valid==false)  {alert("لطفا نوع بیمه را انتخاب نمایید") ;return}
+      if(a.gender.valid==false)  {alert("لطفا جنسیت را انتخاب نمایید") ;return}
       alert("لطفا اطلاعات خواسته شده را درست وارد نمایید") ;
     }
   }

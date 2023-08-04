@@ -63,7 +63,7 @@
     
       <div style="display: flex; justify-content: space-between;margin-top: 30px;">
         <button type="submit" style="width: 200px;" class="btn btn-primary"><div *ngIf="SendLoading==false">ارسال درخواست</div><div  *ngIf="SendLoading==true"> <i class="fas fa-circle-notch fa-spin"></i></div> </button>
-        <!-- <button type="button" style="width: 200px;" class="btn btn-secondary" (click)="cancelForm()">برگشت</button> -->
+        <a type="button"  (click)="goBack()" style="width: 200px;" class="btn btn-outline-secondary" >برگشت</a>
       </div>
       </form>
 
