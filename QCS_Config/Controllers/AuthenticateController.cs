@@ -117,7 +117,7 @@ namespace LeopardWebService.Controllers
 
           
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("Clinic auth");
+            var key = Encoding.ASCII.GetBytes("Clinic auth111111111111111111111");
             var Subject = new ClaimsIdentity(new Claim[]
                {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),

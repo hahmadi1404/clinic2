@@ -1,6 +1,6 @@
 
 .container {
-    background: whitesmoke !important;
+    /* background: whitesmoke !important; */
     max-width: 960px;
     margin: 30px auto;
     
@@ -34,13 +34,6 @@
     clear: both;
   }
   
-  .container {
-    background: whitesmoke !important;
-    max-width: 960px;
-    margin: 30px auto;
-    
-    width:700px;
-  }
   h1 {
     font-size: 30px;
     text-align: center;

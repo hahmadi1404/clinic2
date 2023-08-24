@@ -7,7 +7,7 @@
 <div class="col" style="float: right;"> <a type="button" routerLink ="/pages/reserve/new" role="button" class="menubtn btn btn-outline-primary">گرفتن نوبت (رزرو وقت)</a> </div>
     <div class="container mt-5">
         
-        <table class="table">
+        <table class="table" style="text-align: center;">
           <thead>
             <tr>
               <th>تاریخ رزرو</th>
@@ -17,13 +17,14 @@
               <th>وضعیت</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody >
             <tr *ngFor="let reserve of reserves">
-              <td>{{ reserve.reserveDatePersian }}</td>
-              <td>{{ reserve.department }}</td>
-              <td>{{ reserve.shift }}</td>
+              
+              <td style="vertical-align: middle !important;">{{ reserve.reserveDatePersian }}</td>
+              <td style="vertical-align: middle !important;">{{ reserve.department }}</td>
+              <td style="vertical-align: middle !important;">{{ reserve.shift }}</td>
               <!-- <td>{{ reserve?.doctor }}</td> -->
-              <td>{{ reserve.status }}</td>
+              <td style="vertical-align: middle !important;">{{ reserve.status }}</td>
             </tr>
           </tbody>
         </table>

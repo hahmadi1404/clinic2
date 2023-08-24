@@ -18,7 +18,7 @@
       
         <div class="form-group">
           <label for="shift">شیفت</label>
-          <select class="form-control" id="shift" name="shift" [(ngModel)]="formData.shift" required>
+          <select class="form-control" id="shift" name="shift" [(ngModel)]="formData.phoneNumber" required>
             <option *ngFor="let shift of reqService.shifts" [value]="shift.id">
                 {{ shift.shiftName }}
               </option>

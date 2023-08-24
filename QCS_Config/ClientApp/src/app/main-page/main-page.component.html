@@ -1,6 +1,7 @@
 <div  class="card flex justify-content-left ">
     <div style="width: calc(100% - 315px);">
-    <router-outlet flex align-items-left justify-content-left class=""></router-outlet>
+    <router-outlet  *ngIf="i==0" flex align-items-left justify-content-left class=""></router-outlet>
+    <div *ngIf="i!=0" style="margin: auto auto auto auto; text-align: center; ">
 </div >
     <app-menu style="width:  315px;" ></app-menu>
 

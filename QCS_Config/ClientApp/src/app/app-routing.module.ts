@@ -20,6 +20,7 @@ import { MyHomePageComponent } from './userPages/my-home-page/my-home-page.compo
 import { MyReserveComponent } from './userPages/my-reserve/my-reserve.component';
 import { NewEditReserveComponent } from './userPages/new-edit-reserve/new-edit-reserve.component';
 import { adminAuthGuard } from './Services/adminAuth-guard.service';
+import { UserLogoutComponent } from './userPages/user-login/logout/user-logout.component';
 
 const routes: Routes = [
   { path: 'adminLogout',  component: LogoutComponent },
@@ -46,7 +47,7 @@ const routes: Routes = [
     {path:'Bill',component: BillComponent},
 
    ] ,canActivate: [AuthGuard]},
-  {path: 'logout',  component: LogoutComponent },
+  {path: 'logout',  component: UserLogoutComponent },
   {path:'login',component:UserLoginComponent},
   {path:'register',component:RegisterComponent}
   // {path:'login',component:LoginComponent}

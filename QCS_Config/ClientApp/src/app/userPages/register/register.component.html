@@ -42,11 +42,11 @@
                           </div>
                           <div class="form-group">
                             <label for="phone_number">شماره تلفن همراه (مثال:09123456789)</label>
-                            <input ngModel type="text" class="form-control"  name="phone_number" maxlength="11"  required (keypress)="onKeyPress($event)"   pattern="09[0-9]{9}" placeholder="شماره تلفن همراه">
+                            <input ngModel type="text" class="form-control"  name="phone_number" maxlength="11" [(ngModel)]="formData.shift"  required (keypress)="onKeyPress($event)"   pattern="\u06F0\u06F9|09[\u06F0|0-\u06F9|9]{9}" placeholder="شماره تلفن همراه">
                           </div>
                           <div class="form-group">
                             <label for="insurance">بیمه</label>
-                            <select ngModel class="form-control" name="insurance">
+                            <select [(ngModel)]="selectInsurance" required class="form-control" name="insurance">
                                 <option *ngFor="let insurance of insurances" [value]="insurance.id">
                                     {{ insurance.insuranceName }}
                                   </option>

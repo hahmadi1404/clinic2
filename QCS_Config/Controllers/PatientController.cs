@@ -89,6 +89,12 @@ namespace QCS_Config.Controllers
           {
               return Problem("Entity set 'DBContext.Patients'  is null.");
           }
+
+          if (_context.Patients.Any(a =>
+                  a.PhoneNumber == patient.PhoneNumber || a.NationalCode == patient.NationalCode))
+          {
+              return ValidationProblem("کد ملی یا شماره تلفن وارد شده تکراری می باشد");
+          }
             _context.Patients.Add(patient);
             await _context.SaveChangesAsync();
 

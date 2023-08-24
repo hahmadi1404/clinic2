@@ -4,24 +4,48 @@
 
     <!-- <p-button icon="pi pi-plus" label="پزشک جدید"  title=" پزشک جدید"  styleClass="p-button-success"></p-button> -->
 
-
-
-    <div class="card" style="overflow: inherit !important; max-height:400px" >
-        <p-table [value]="AllData" [tableStyle]="{ 'max-width': '100%' }"
+    <div style="float: right;position: absolute; top: 20px;">
+        <p-button  *ngIf="selectedReserves?.length>0" (onClick)="groupStateVisible=true;"  label="اعمال وضعیت به صورت گروهی"></p-button>
+    </div>
+    <div class="card" style="overflow: inherit !important; min-height:400px" >
+        <p-table [value]="AllData" [(selection)]="selectedReserves" [tableStyle]="{ 'max-width': '100%' }"
                 [loading]="dataLoading"
                 [scrollable]="true"
         >
             <ng-template pTemplate="header" style="overflow: inherit">
+
                 <tr style="max-height: 50px!important" >
+                    <!-- <th style="width: 3rem">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                      </th> -->
                     <th pSortableColumn="dosierIdReq" style="text-align: right;max-height: 50px">شماره پرونده <p-sortIcon field="dosierIdReq"></p-sortIcon></th>
+                    <th pSortableColumn="department" style="text-align: right;max-height: 50px">بخش <p-sortIcon field="department"></p-sortIcon></th>
+                    <th pSortableColumn="shift" style="text-align: right;max-height: 50px">شیفت <p-sortIcon field="shift"></p-sortIcon></th>
+                    <th pSortableColumn="dr" style="text-align: right;max-height: 50px">پزشک <p-sortIcon field="dr"></p-sortIcon></th>
+                    <th pSortableColumn="insurance" style="text-align: right;max-height: 50px">بیمه <p-sortIcon field="insurance"></p-sortIcon></th>
                     <th pSortableColumn="fullNameReq" style="text-align: right;max-height: 50px">نام <p-sortIcon field="fullNameReq"></p-sortIcon></th>
                     <th style="text-align: right;width: 200px;max-height: 50px">تاریخ رزرو</th>
                     <th pSortableColumn="status" style="text-align: right;width: 300px;max-height: 50px">وضعیت <p-sortIcon field="status"></p-sortIcon></th>
-                    <th style="width:10rem;text-align: center;max-height: 50px;">عملیات</th>
+                    <!-- <th style="width:10rem;text-align: center;max-height: 50px;">عملیات</th> -->
                 </tr>
                 <tr  >
+                    <!-- <th >
+                        
+                    </th> -->
                     <th >
                         <p-columnFilter  type="text" matchMode="contains" [showMenu]="false"  style="width:10rem;text-align: center;" field="dosierIdReq"></p-columnFilter>
+                    </th>
+                    <th >
+                        <p-columnFilter  type="text" matchMode="contains" [showMenu]="false"  style="width:10rem;text-align: center;" field="department"></p-columnFilter>
+                    </th>
+                    <th >
+                        <p-columnFilter  type="text" matchMode="contains" [showMenu]="false"  style="width:10rem;text-align: center;" field="shift"></p-columnFilter>
+                    </th>
+                    <th >
+                        <p-columnFilter  type="text" matchMode="contains" [showMenu]="false"  style="width:10rem;text-align: center;" field="dr"></p-columnFilter>
+                    </th>
+                    <th >
+                        <p-columnFilter  type="text" matchMode="contains" [showMenu]="false"  style="width:10rem;text-align: center;" field="insurance"></p-columnFilter>
                     </th>
                     <th>
                         <p-columnFilter type="text" matchMode="contains" [showMenu]="false"  style="width:10rem;text-align: center;" field="fullNameReq"></p-columnFilter>
@@ -42,25 +66,30 @@
 
                         <!-- <p-columnFilter type="text" style="width:10rem;text-align: center;" field="status"></p-columnFilter> -->
                     </th>
-                    <th>
-                        <!-- <p-columnFilter type="text" style="width:10rem;text-align: center;" field="status"></p-columnFilter> -->
-                    </th>
+
                 </tr>
 
 
             </ng-template>
             <ng-template pTemplate="body" let-data style="overflow: inherit"    >
                 <tr class="dataRow" style="max-height:46px" (click)="edit(data)">
+                    <!-- <td>
+                        <p-tableCheckbox (click)="$event.stopPropagation();" [value]="data"></p-tableCheckbox>
+                      </td> -->
                     <td style="text-align: right;">{{ data.dosierIdReq }}</td>
+                    <td style="text-align: right;">{{ data.department }}</td>
+                    <td style="text-align: right;">{{ data.shift }}</td>
+                    <td style="text-align: right;">{{ "" }}</td>
+                    <td style="text-align: right;">{{ data.insurance }}</td>
                     <td style="text-align: right;">{{ data.fullNameReq }}</td>
-                    <td style="text-align: right;">{{ data.reserveDate | date:'yyyy-MM-dd' }}</td>
+                    <td style="text-align: right;">{{ data.reserveDatePersian  }}</td>
                     <td style="text-align: center;"><p-tag [value]="data.status "></p-tag></td>
-                    <td class="flex justify-content-around flex-wrap card-container indigo-container">
+                    <!-- <td class="flex justify-content-around flex-wrap card-container indigo-container"> -->
                         <!-- <p-button icon="pi pi-pencil" title="ویرایش وضعیت رزرو وقت" (click)="edit(data)" styleClass="p-button-warning"></p-button> -->
-                        <p-confirmPopup></p-confirmPopup>
-                        <p-button icon="pi pi-trash"  title="حذف رزرو وقت" (click)="remove($event,data)" styleClass="p-button-rounded p-button-danger "></p-button>
+                        <!-- <p-confirmPopup></p-confirmPopup> -->
+                        <!-- <p-button icon="pi pi-trash"  title="حذف رزرو وقت" (click)="remove($event,data)" styleClass="p-button-rounded p-button-danger "></p-button> -->
                         
-                    </td>
+                    <!-- </td> -->
                 </tr>
             </ng-template>
         </p-table>
@@ -114,7 +143,7 @@
         <br>
         <div class="flex flex-row align-items-end justify-content-end gap-2">
             <label htmlFor="reserveDate">تاریخ رزرو</label>
-            <input class="p-inputtext-sm" style="width: 370px;" pInputText id="reserveDate" disabled aria-describedby="reserveDate" [ngModel]="currentData.reserveDate| date:'yyyy-MM-dd'" />
+            <input class="p-inputtext-sm" style="width: 370px;" pInputText id="reserveDate" disabled aria-describedby="reserveDate" [ngModel]="currentData.reserveDatePersian" />
            
         </div>
 
@@ -122,8 +151,20 @@
     </div> 
     <br>
     <div class="card flex justify-content-center">
-    <p-selectButton [options]="ReserveStatusOptions" [(ngModel)]="currentData.status"  optionLabel="name" optionValue="name"></p-selectButton>
-</div>
+        <p-selectButton [options]="ReserveStatusOptions" [(ngModel)]="currentData.status"  optionLabel="name" optionValue="name"></p-selectButton>
+    </div>
     <br>
     <p-button (onClick)="Update()" [loading]="loading" label="ذخیره"></p-button>
+</p-dialog>
+
+
+
+
+<p-dialog header="اعمال وضعیت گروهی" [(visible)]="groupStateVisible" [modal]="true" [style]="{ width: '29vw' }" [draggable]="false" [resizable]="false">
+    <div class="card flex justify-content-center">
+            <p-selectButton [options]="ReserveStatusOptions" [(ngModel)]="groupStateChange"  optionLabel="name" optionValue="name"></p-selectButton>
+        </div>
+
+    <br>
+    <p-button (onClick)="groupStateUpdate()" [loading]="loading" label="اعمال"></p-button>
 </p-dialog>

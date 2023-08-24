@@ -27,7 +27,8 @@ export class LoginComponent {
           this.loginService.setCookie('adminToken', e.pass, 100000);
           this.loginService.setCookie('adminPermission', e.permission.toString(), 100000);
           this.loginService.isLogin = true;
-          this.router.navigate(['/adminPages/home']);
+          this.router.navigate(['./adminPages/Introduction']);
+          console.log(e);
       } else {
         alert("نام کاربری یا کلمه عبور اشتباه می باشد");
       }}

@@ -31,7 +31,7 @@ body {
 }
 
 .container {
-  background: whitesmoke !important;
+  /* background: whitesmoke !important; */
   max-width: 960px;
   margin: 30px auto;
   

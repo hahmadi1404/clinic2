@@ -74,7 +74,7 @@ dragMode=false;
       if(this.file){
       let formdata=new FormData();
       formdata.append("file",this.file)
-      this.reqService.AddImage("Intro",0,"Image", formdata).subscribe(()=>{
+      this.reqService.AddImage("/images/Intro",0,"Image", formdata).subscribe(()=>{
         this.loading=false;
       });
     }else{

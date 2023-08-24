@@ -16,6 +16,7 @@ export class UserMainPageComponent {
     this.url= a._routerState.url;
     console.log(router);
 
+    this.reqService.token=this.loginService.getCookie('token');
     this.reqService.myGender=Number(this.loginService.getCookie('gender'));
     this.reqService.myName=this.loginService.getCookie('name');
     this.reqService.myClinicId=Number(this.loginService.getCookie('permission'));
@@ -24,11 +25,12 @@ export class UserMainPageComponent {
     this.reqService.myDosierId=this.loginService.getCookie('dosierId');
  
     reqService.GetInsurance().subscribe((data:any)=>{
+      reqService.myInsurance=[];
       this.i--;
       console.log(data);
       let myInsurance=Number(this.loginService.getCookie('insuranceId'));
       reqService.myInsuranceId=myInsurance;
-      reqService.Insurances==data;   
+      reqService.Insurances=data;   
       reqService.myInsurance.push(data.filter((f:any)=>f.id==Number(myInsurance))[0].insuranceName)
     });
 

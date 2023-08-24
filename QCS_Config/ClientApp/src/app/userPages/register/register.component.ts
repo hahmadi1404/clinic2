@@ -13,6 +13,7 @@ export class RegisterComponent {
   constructor(private router: Router,private reqService:RequestService) {
     reqService.GetInsurance().subscribe((data:any)=>{
       this.insurances=data;
+      this.selectInsurance=data[0].id;
       console.log(data);
     });
     reqService.GetAgreement().subscribe((data:any)=>{
@@ -21,18 +22,55 @@ export class RegisterComponent {
     });
 
   }
-  insurances:any=[{insuranceName:"بیمه 1", id:0}];
+  insurances:any=[];
   termsConditions=false;
+  selectInsurance:any;
   terms="";
   agree=false;
   setAgree(){
     this.termsConditions=true;
 
   }
+
+  convertNumber(number:any) {
+    // Convert the number to a string.
+    var stringNumber = number.toString();
+  
+    // Replace all the Persian digits with English digits.
+    stringNumber = stringNumber.replace(/۰/g, "0");
+    stringNumber = stringNumber.replace(/۱/g, "1");
+    stringNumber = stringNumber.replace(/۲/g, "2");
+    stringNumber = stringNumber.replace(/۳/g, "3");
+    stringNumber = stringNumber.replace(/۴/g, "4");
+    stringNumber = stringNumber.replace(/۵/g, "5");
+    stringNumber = stringNumber.replace(/۶/g, "6");
+    stringNumber = stringNumber.replace(/۷/g, "7");
+    stringNumber = stringNumber.replace(/۸/g, "8");
+    stringNumber = stringNumber.replace(/۹/g, "9");
+  
+
+
+    stringNumber = stringNumber.replace(/۰/g, "0");
+    stringNumber = stringNumber.replace(/۱/g, "1");
+    stringNumber = stringNumber.replace(/۲/g, "2");
+    stringNumber = stringNumber.replace(/۳/g, "3");
+    stringNumber = stringNumber.replace(/۴/g, "4");
+    stringNumber = stringNumber.replace(/۵/g, "5");
+    stringNumber = stringNumber.replace(/۶/g, "6");
+    stringNumber = stringNumber.replace(/۷/g, "7");
+    stringNumber = stringNumber.replace(/۸/g, "8");
+    stringNumber = stringNumber.replace(/۹/g, "9");
+
+    
+    // Return the converted number.
+    return stringNumber;
+  }
   onKeyPress(e:any) {
     var charCode = (e.which) ? e.which : e.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+
       e.preventDefault();
+      // this.formData.phoneNumber=this.convertNumber(this.formData.phoneNumber);
     }
   }
 
@@ -51,13 +89,14 @@ export class RegisterComponent {
   formData: any = {}; // آبجکت برای ذخیره مقادیر فرم
 
   onSubmit(form: NgForm) {
+    form.value.phone_number=this.convertNumber(form.value.phone_number);
     if (form.valid) {
-      this.formData.dosierID = form.value.DosierID;      
+      this.formData.dosierID =this.convertNumber (form.value.DosierID);      
       this.formData.name = form.value.name;
       this.formData.lastName = form.value.last_name;
-      this.formData.nationalCode = form.value.national_code;
-      this.formData.phoneNumber = form.value.phone_number;
-      this.formData.insuranceId =Number( form.value.insurance);
+      this.formData.nationalCode = this.convertNumber(form.value.national_code);
+      this.formData.phoneNumber = this.convertNumber(form.value.phone_number);
+      this.formData.insuranceId =Number( this.selectInsurance);
       this.formData.gender = Number(form.value.gender);
       if(this.validateIranianNationalCode(this.formData.nationalCode)==false) {alert("کد ملی صحیحی وارد نمایید");return}
       console.log(this.formData); // نمایش آبجکت در کنسول
@@ -66,7 +105,12 @@ export class RegisterComponent {
       this.reqService.AddPatient(this.formData).subscribe(a=>{
         alert("ثبت نام شما با موفقیت انجام شد حالا می توانید وارد سیستم شوید");
         this.router.navigate(['login']);
-      },error=>{
+      },(error:any)=>{
+        console.log(error);
+        if(error.error.title="One or more validation errors occurred."){
+          alert(error.error.detail);
+          return;
+        }
         alert("ثبت نام با مشکل مواجه شد");
       })
     }else{

@@ -19,38 +19,43 @@ export class MenuComponent implements OnInit {
                   {
                       label: 'معرفی مجموعه',
                       // icon: 'pi pi-refresh',
-                      routerLink: '/pages/Introduction'
+                      routerLink: '/adminPages/Introduction'
                       // command: () => {
                       //     // this.update();
                       // }
                   },
                   {
                       label: 'معرفی خدمات',
-                      routerLink: '/pages/Services'
+                      routerLink: '/adminPages/Services'
                   },
                   {
                     label: 'معرفی پزشکان',
-                    routerLink: '/pages/Doctors'
+                    routerLink: '/adminPages/Doctors'
                   },
                   {
                     label: 'مدیریت رزرو وقت',
-                    routerLink: '/pages/Reserve'
+                    routerLink: '/adminPages/Reserve'
                   }
                   ,
                   {
                     label: 'مدیریت تصاویر گرافی',
-                    routerLink: '/pages/Graphy'
+                    routerLink: '/adminPages/Graphy'
                   }
                   ,
                   {
                     label: 'مدیریت صورتحساب',
-                    routerLink: '/pages/Bill'
+                    routerLink: '/adminPages/Bill'
                   }
                   // ,
                   // {
                   //   label: 'انتقاد و پیشنهادات',
                   //   routerLink: '/pages/Reserve'
                   // }
+                  ,
+                  {
+                    label: 'خروج از حساب کاربری',
+                    routerLink: '/adminLogout'
+                  }
               ]
           }
       ];

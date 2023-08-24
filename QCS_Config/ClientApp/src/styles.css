@@ -5,6 +5,7 @@ body {
 }
 body .p-component{
     font-family: "vazir" !important;
+    text-align: right !important;
     
 }
 body,html{
@@ -15,4 +16,7 @@ body,html{
   src: url('assets/Vazir.woff2') format('woff2');
   font-family:'vazir';
   font-style: normal;
+}
+.card{
+  border: 0px solid rgba(0,0,0,.125) !important ;
 }

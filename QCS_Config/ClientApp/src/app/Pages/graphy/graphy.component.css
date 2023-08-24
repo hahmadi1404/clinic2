@@ -27,7 +27,7 @@
   }
   
   .container {
-    background: whitesmoke !important;
+    /* background: whitesmoke !important; */
     min-width: 500px;
     min-height:80%;
     width: 90%  !important;

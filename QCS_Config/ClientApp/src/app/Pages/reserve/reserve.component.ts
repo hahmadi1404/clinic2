@@ -15,6 +15,7 @@ export class ReserveComponent {
   ReserveStatusOptions:any[]=[
 
 ];
+
   selectReserveStatus="";
   // ClinicId: number=-1;
   constructor(private confirmationService: ConfirmationService,private reqService:RequestService,private loginService: LoginService) {
@@ -25,9 +26,25 @@ export class ReserveComponent {
 
   }
 
+  groupStateVisible=false;
+  selectedReserves:any=[];
   getData(){
     this.dataLoading=true;
     this.reqService.GetReserves().subscribe((data:any)=>{
+      this.AllData=[];
+      data.forEach((element:any) => {
+        console.log(element);
+        console.log(this.reqService.departments.filter((f:any)=>f.id==element.sectionId));
+        element.department=this.reqService.departments.filter((f:any)=>f.id==element.sectionId)[0]?.departmentName;
+        element.shift=this.reqService.shifts.filter((f:any)=>f.id==element.shiftId)[0]?.shiftName;
+        // element.doctor=this.reqService.doctorS.filter((f:any)=>f.id==element.drId)[0]?.DrName;
+        let insurance=this.reqService.Insurances.filter((f:any)=>f.id==element.insuranceId);
+        console.log("insurance");
+        console.log(insurance);
+        element.insurance=(insurance.length==0?"":insurance[0].insuranceName) ;
+        this.AllData.push(element);
+        console.log(element);
+      });
       this.AllData=data;
       this.dataLoading=false;
     });
@@ -99,6 +116,34 @@ export class ReserveComponent {
       this.visible=false;
     
     }); 
+  }
+
+  groupStateChange="";
+  groupStateUpdate(){
+    this.loading=true;
+    let i=0;
+    let error=0;
+    this.selectedReserves.forEach((element:any) => {
+      i++;
+      element.state=this.groupStateChange;
+      this.reqService.UpdateReserve(this.currentData).subscribe(()=>{
+        i--;
+      },(err:any)=>{
+        i--;
+        error++;
+      }); 
+    });
+    while(i==0){
+
+      this.loading=false;
+      this.getData();
+      this.visible=false;
+      if(error==0){
+        alert("تمامی درخواست ها به درستی تغییر وضعیت پیدا کردند");
+      }else{
+        alert(error +" درخواست از "+ this.selectedReserves.length +" با مشکل رو برو شد");
+      }
+    }
   }
 
 

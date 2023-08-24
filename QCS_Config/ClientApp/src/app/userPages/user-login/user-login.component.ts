@@ -22,11 +22,30 @@ onKeyPress(e:any) {
   }
 }
 
+convertNumber(number:any) {
+  // Convert the number to a string.
+  var stringNumber = number.toString();
+
+  // Replace all the Persian digits with English digits.
+  stringNumber = stringNumber.replace(/۰/g, "0");
+  stringNumber = stringNumber.replace(/۱/g, "1");
+  stringNumber = stringNumber.replace(/۲/g, "2");
+  stringNumber = stringNumber.replace(/۳/g, "3");
+  stringNumber = stringNumber.replace(/۴/g, "4");
+  stringNumber = stringNumber.replace(/۵/g, "5");
+  stringNumber = stringNumber.replace(/۶/g, "6");
+  stringNumber = stringNumber.replace(/۷/g, "7");
+  stringNumber = stringNumber.replace(/۸/g, "8");
+  stringNumber = stringNumber.replace(/۹/g, "9");
+
+  // Return the converted number.
+  return stringNumber;
+}
 onSubmit(form: NgForm) {
   if (form.valid) {
     console.log(form); // نمایش آبجکت در کنسول
-    let phone:string=form.value.phone_number;
-    let nationalCode:string=form.value.national_code;
+    let phone:string=this.convertNumber(form.value.phone_number);
+    let nationalCode:string=this.convertNumber(form.value.national_code);
     
     if(this.validateIranianNationalCode(nationalCode)==false) {alert("کد ملی صحیحی وارد نمایید");return}
 
