@@ -47,6 +47,8 @@ import { RequestService } from './Services/request.service';
 
 import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
 import { UserLogoutComponent } from './userPages/user-login/logout/user-logout.component';
+import { ShiftComponent } from './Pages/shift/shift.component';
+import { InsuranceComponent } from './Pages/insurance/insurance.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,9 @@ import { UserLogoutComponent } from './userPages/user-login/logout/user-logout.c
     UserMainPageComponent,
     MyHomePageComponent,
     NewEditReserveComponent,
-    UserLogoutComponent
+    UserLogoutComponent,
+    ShiftComponent,
+    InsuranceComponent
   ],
   imports: [
     BrowserModule,

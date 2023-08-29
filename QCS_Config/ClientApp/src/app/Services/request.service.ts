@@ -134,7 +134,16 @@ myInsuranceId=-1;
 GetInsurance() {
   return this.http.get('./api/Insurance');
 }
-
+AddInsurance(data:any) {
+  console.log(data);
+  return this.http.post('./api/Insurance', data, {headers: {'Authorization': `Bearer ${this.token}`}});
+}
+UpdateInsurance(data:any) {
+  return this.http.put('./api/Insurance/'+data.id, data, {headers: {'Authorization': `Bearer ${this.token}`}});
+}
+RemoveInsurance(data:any) {
+  return this.http.delete('./api/Insurance/'+data.id, {headers: {'Authorization': `Bearer ${this.token}`}});
+}
 
 
 
@@ -150,6 +159,16 @@ GetDepartment() {
 shifts:any=null;
 GetShift() {
   return this.http.get('./api/Shift');
+}
+AddShift(data:any) {
+  console.log(data);
+  return this.http.post('./api/Shift', data, {headers: {'Authorization': `Bearer ${this.token}`}});
+}
+UpdateShift(data:any) {
+  return this.http.put('./api/Shift/'+data.id, data, {headers: {'Authorization': `Bearer ${this.token}`}});
+}
+RemoveShift(data:any) {
+  return this.http.delete('./api/Shift/'+data.id, {headers: {'Authorization': `Bearer ${this.token}`}});
 }
 
 

@@ -29,8 +29,16 @@ export class MenuComponent implements OnInit {
                       routerLink: '/adminPages/Services'
                   },
                   {
+                      label: 'معرفی شیفت ها',
+                      routerLink: '/adminPages/Shifts'
+                  },
+                  {
                     label: 'معرفی پزشکان',
                     routerLink: '/adminPages/Doctors'
+                  },
+                  {
+                    label: 'بیمه ها',
+                    routerLink: '/adminPages/Insurance'
                   },
                   {
                     label: 'مدیریت رزرو وقت',

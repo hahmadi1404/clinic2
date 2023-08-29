@@ -1,0 +1,59 @@
+
+<div class="container" style="direction: rtl;" >
+    <h1 style="text-align: center;">لیست بیمه ها</h1>
+
+    <p-button class="btnNew" icon="pi pi-plus" label="بیمه جدید"  title=" بیمه جدید" (click)="add()" styleClass="p-button-success"></p-button>
+    
+    <div class="card" style="overflow: inherit !important; max-height:400px">
+        <p-table [value]="AllData" [tableStyle]="{  'max-width': '100%' }"
+        [loading]="dataLoading"
+        [scrollable]="true"
+>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="text-align: right;">نام بیمه</th>
+                    <th style="width:10rem;text-align: center;">عملیات</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-data>
+                <tr class="dataRow"  (click)="edit(data)">
+                    <td style="text-align: right;">{{ data.insuranceName }}</td>
+                    <!-- <td style="text-align: right;">{{ data.status }}</td> -->
+                    <td class="flex justify-content-around flex-wrap card-container indigo-container">
+                        
+                        <p-button icon="pi pi-pencil" title="ویرایش بیمه" (click)="edit(data)" styleClass="p-button-warning"></p-button>
+                        <p-confirmPopup></p-confirmPopup>
+                        <p-button icon="pi pi-trash" title="حذف بیمه" (click)="remove($event,data)" styleClass="p-button-danger "></p-button>
+                        
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+
+
+</div>
+
+
+
+<p-dialog [header]="editMode?'ویرایش بیمه':'ایجاد بیمه جدید'" [(visible)]="visible"  [modal]="true" [style]="{ width: '400px' ,height:'300px'}"  [draggable]="false" [resizable]="false">
+            <div style="max-width: 520px;direction: rtl;">
+
+                <div class="flex flex-row align-items-end justify-content-end gap-2 ">
+                    <label htmlFor="dosierIdReq">نام بیمه</label>
+                    <input class=" p-inputtext-sm" style="width: 270px;" pInputText id="insuranceName"  aria-describedby="insuranceName" [(ngModel)]="currentData.insuranceName" />
+                   
+                </div>
+                <br>
+               
+            </div> 
+            <br>
+            <div class="card flex justify-content-center">
+            
+        </div>
+            <br>
+            <p-button (onClick)="editMode? Update():Create() " [loading]="loading" label="ذخیره"></p-button>
+
+
+</p-dialog>

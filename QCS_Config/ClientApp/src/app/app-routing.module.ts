@@ -21,6 +21,8 @@ import { MyReserveComponent } from './userPages/my-reserve/my-reserve.component'
 import { NewEditReserveComponent } from './userPages/new-edit-reserve/new-edit-reserve.component';
 import { adminAuthGuard } from './Services/adminAuth-guard.service';
 import { UserLogoutComponent } from './userPages/user-login/logout/user-logout.component';
+import { ShiftComponent } from './Pages/shift/shift.component';
+import { InsuranceComponent } from './Pages/insurance/insurance.component';
 
 const routes: Routes = [
   { path: 'adminLogout',  component: LogoutComponent },
@@ -30,7 +32,9 @@ const routes: Routes = [
     {path:'',component: HomePageComponent},
     {path:'Introduction',component: IntroductionPageComponent},
     {path:'Services',component: ServicesPageComponent},
+    {path:'Shifts',component: ShiftComponent},
     {path:'Doctors',component: DoctorsComponent},
+    {path:'Insurance',component: InsuranceComponent},
     {path:'Reserve',component: ReserveComponent},
     {path:'Graphy',component: GraphyComponent},
     {path:'Bill',component: BillComponent},
